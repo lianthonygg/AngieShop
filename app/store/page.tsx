@@ -5,6 +5,7 @@ import BottomBar from "@/src/presentation/common/components/BottomBar";
 import DetailProduct from "@/src/presentation/common/components/DetailProduct";
 import { PageTransition } from "@/src/presentation/common/components/PageTransition";
 import ProductCard from "@/src/presentation/common/components/ProductCard";
+import { ProductCardSkeleton } from "@/src/presentation/common/components/ProductCardSkeleton";
 import axios from "axios";
 import { Raleway, Nunito_Sans, Poppins } from "next/font/google";
 import { useRouter } from "next/navigation";
@@ -107,13 +108,16 @@ function HomePage() {
           🔍
         </button>
       </header>
-      {!data && (
-        <div className="w-full min-h-screen bg-gray-300 flex justify-center items-center text-xl">
-          Cargando...
-        </div>
-      )}
+
       <main className="md:max-w-4xl mx-auto px-3 pt-3 pb-20">
         <BannerCarousel />
+        {!data && (
+          <section className="grid grid-cols-2 gap-3">
+            {Array.from({ length: 6 }).map((_, index) => (
+              <ProductCardSkeleton key={`skeleton-${index}`} />
+            ))}
+          </section>
+        )}
         <section className="grid grid-cols-2 gap-3">
           {data?.map((product) => (
             <ProductCard

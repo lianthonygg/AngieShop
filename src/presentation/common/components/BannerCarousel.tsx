@@ -29,7 +29,7 @@ export default function BannerCarousel() {
       <Carousel
         plugins={[
           Autoplay({
-            delay: 4000,
+            delay: 7000,
             stopOnInteraction: true,
             stopOnMouseEnter: true,
           }),

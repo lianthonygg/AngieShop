@@ -20,7 +20,7 @@ function BottomBar() {
         tag="store"
         pathname={pathname}
       />
-      <BarItem
+      {/* <BarItem
         title="Categorias"
         icon={"/Categories.svg"}
         tag="categories"
@@ -31,19 +31,19 @@ function BottomBar() {
         icon={"/WishList.svg"}
         tag="favorites"
         pathname={pathname}
-      />
+      /> */}
       <BarItem
         title="Carrito"
         icon={"Cart.svg"}
         tag="cart"
         pathname={pathname}
       />
-      <BarItem
+      {/* <BarItem
         title="Perfil"
         icon={"/Profile.svg"}
         tag="profile"
         pathname={pathname}
-      />
+      /> */}
     </footer>
   );
 }
