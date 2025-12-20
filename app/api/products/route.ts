@@ -7,7 +7,22 @@ const supabase = createClient(
 );
 
 export async function GET(request: NextRequest) {
-  const { data, error } = await supabase.from("products").select("*");
+  const { data, error } = await supabase
+    .from("products")
+    .select(
+      `
+      id,
+      slug,
+      name,
+      description,
+      price,
+      currency,
+      image_url,
+      is_active,
+      sort_order
+    `
+    )
+    .order("sort_order", { ascending: true });
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 400 });
