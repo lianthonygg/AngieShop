@@ -1,4 +1,5 @@
 "use client";
+import { shopApi } from "@/src/data/api/axios-client";
 import BottomBar from "@/src/presentation/common/components/BottomBar";
 import DetailProduct from "@/src/presentation/common/components/DetailProduct";
 import { PageTransition } from "@/src/presentation/common/components/PageTransition";
@@ -56,9 +57,7 @@ function HomePage() {
 
   const buscarProductos = async () => {
     try {
-      const { data } = await axios.get<ProductResponse>(
-        "http://localhost:3000/api/products"
-      );
+      const { data } = await shopApi.get<ProductResponse>("/products");
 
       setData(data.data);
     } catch (err) {
