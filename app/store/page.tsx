@@ -1,5 +1,6 @@
 "use client";
 import { shopApi } from "@/src/data/api/axios-client";
+import BannerCarousel from "@/src/presentation/common/components/BannerCarousel";
 import BottomBar from "@/src/presentation/common/components/BottomBar";
 import DetailProduct from "@/src/presentation/common/components/DetailProduct";
 import { PageTransition } from "@/src/presentation/common/components/PageTransition";
@@ -112,6 +113,7 @@ function HomePage() {
         </div>
       )}
       <main className="md:max-w-4xl mx-auto px-3 pt-3 pb-20">
+        <BannerCarousel />
         <section className="grid grid-cols-2 gap-3">
           {data?.map((product) => (
             <ProductCard

@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "EnviosYa",
+  title: "Angie Shop",
   description:
-    "Tienda EnviosYa su mejor opcion para mandarle a tu familia en Cuba todo lo que necesita",
+    "Tienda online de perfumes y tecnología en Matanzas, Cuba. Encuentra las mejores ofertas en fragancias y gadgets de última generación.",
 };
 
 export default function RootLayout({
