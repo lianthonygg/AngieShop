@@ -7,23 +7,9 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "./ui/carousel";
+import { Banner } from "../../types/store.type";
 
-const banners = [
-  {
-    id: 1,
-    imageSrc:
-      "https://fanzjptylyuvwvlotopk.supabase.co/storage/v1/object/public/product-images/tecnology-banner.jpg",
-    alt: "Tecnologia",
-  },
-  {
-    id: 2,
-    imageSrc:
-      "https://fanzjptylyuvwvlotopk.supabase.co/storage/v1/object/public/product-images/perfumes-banner.jpg",
-    alt: "Perfumeria",
-  },
-];
-
-export default function BannerCarousel() {
+export default function BannerCarousel({ banners }: { banners: Banner[] }) {
   return (
     <div className="w-full relative select-none pb-5">
       <Carousel
@@ -37,12 +23,12 @@ export default function BannerCarousel() {
         className="w-full overflow-hidden rounded-2xl"
       >
         <CarouselContent className="-ml-4">
-          {banners.map(({ id, imageSrc, alt }) => (
+          {banners.map(({ id, image_url, slug }) => (
             <CarouselItem key={id} className="pl-4 basis-full">
               <div className="relative w-full aspect-video md:aspect-[21/9] lg:aspect-[3/1]">
                 <img
-                  src={imageSrc}
-                  alt={alt}
+                  src={image_url}
+                  alt={slug}
                   className="absolute inset-0 w-full h-full object-cover object-center rounded-2xl"
                 />
               </div>

@@ -38,7 +38,7 @@ function ProductCard({
   const decrement = () => {
     setCount(count - 1);
   };
-  console.log(src);
+
   return (
     <div
       onClick={openSheet}

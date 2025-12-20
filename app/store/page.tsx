@@ -6,6 +6,11 @@ import DetailProduct from "@/src/presentation/common/components/DetailProduct";
 import { PageTransition } from "@/src/presentation/common/components/PageTransition";
 import ProductCard from "@/src/presentation/common/components/ProductCard";
 import { ProductCardSkeleton } from "@/src/presentation/common/components/ProductCardSkeleton";
+import {
+  Banner,
+  Product,
+  ProductResponse,
+} from "@/src/presentation/types/store.type";
 import axios from "axios";
 import { Raleway, Nunito_Sans, Poppins } from "next/font/google";
 import { useRouter } from "next/navigation";
@@ -29,22 +34,20 @@ const poppins = Poppins({
   weight: "200",
 });
 
-type ProductResponse = {
-  data: Product[];
-};
-
-type Product = {
-  id: string;
-  slug: string;
-  name: string;
-  description: string;
-  price: number;
-  currency: number;
-  //category: string;
-  image_url: string;
-  is_active: boolean;
-  created_at: string;
-};
+const banners: Banner[] = [
+  {
+    id: 1,
+    image_url:
+      "https://fanzjptylyuvwvlotopk.supabase.co/storage/v1/object/public/product-images/tecnology-banner.jpg",
+    slug: "Tecnologia",
+  },
+  {
+    id: 2,
+    image_url:
+      "https://fanzjptylyuvwvlotopk.supabase.co/storage/v1/object/public/product-images/perfumes-banner.jpg",
+    slug: "Perfumeria",
+  },
+];
 
 function HomePage() {
   const [data, setData] = useState<Product[]>();
@@ -83,7 +86,7 @@ function HomePage() {
 
   return (
     <div className=" w-full min-h-screen">
-      <PageTransition />
+      {/* <PageTransition /> */}
       <header className="py-4 px-2 flex md:justify-around items-center gap-4 font-bold sticky top-0 bg-white z-40 shadow-lg">
         <div className="flex items-center flex-1 gap-2">
           <img
@@ -110,7 +113,7 @@ function HomePage() {
       </header>
 
       <main className="md:max-w-4xl mx-auto px-3 pt-3 pb-20">
-        <BannerCarousel />
+        <BannerCarousel banners={banners} />
         {!data && (
           <section className="grid grid-cols-2 gap-3">
             {Array.from({ length: 6 }).map((_, index) => (
