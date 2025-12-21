@@ -9,7 +9,7 @@ export async function signInWithGoogle() {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: "http://localhost:3000/store",
+      redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/store`,
     },
   });
 }
