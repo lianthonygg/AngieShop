@@ -1,6 +1,6 @@
 import { shopApi } from "@/src/data/api/axios-client";
 import { AnimatePresence, motion } from "framer-motion";
-import { Divide, X } from "lucide-react";
+import { ShoppingCart, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Product, ProductByIdResponse, Banner } from "../../types/store.type";
 import { DetailProductSkeleton } from "./DetailProductSkeleton";
@@ -45,7 +45,6 @@ function DetailProduct({ id, isOpen, toggleSheet }: DetailProductProps) {
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -89,12 +88,18 @@ function DetailProduct({ id, isOpen, toggleSheet }: DetailProductProps) {
                   <div>
                     <h3 className="text-xl font-semibold">{data.name}</h3>
                     <p className="text-3xl font-bold text-green-600 mt-2">
-                      ${data.price?.toFixed(0)}
+                      ${data.price} {data.currency}
                     </p>
                   </div>
                   <p className="text-gray-700 leading-relaxed">
                     {data.description}
                   </p>
+                </div>
+                <div className="flex justify-end items-center py-4">
+                  <button className="flex items-center justify-center gap-2 bg-primary text-white font-medium px-6 py-3 rounded-full shadow-lg hover:bg-primary/90 hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1 active:scale-95">
+                    <ShoppingCart size={20} strokeWidth={2} />
+                    <span>Agregar al carrito</span>
+                  </button>
                 </div>
               </div>
             )}

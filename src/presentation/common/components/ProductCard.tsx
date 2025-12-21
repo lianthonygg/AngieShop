@@ -18,6 +18,7 @@ type ProductCardProps = {
   alt: string;
   title: string;
   price: number;
+  currency: string;
 };
 
 function ProductCard({
@@ -28,6 +29,7 @@ function ProductCard({
   alt,
   title,
   price,
+  currency,
 }: ProductCardProps) {
   const [count, setCount] = useState(1);
 
@@ -60,12 +62,9 @@ function ProductCard({
 
       <div className="p-3">
         <h3 className={`${font.className} mb-2 text-gray-800`}>{title}</h3>
-        {/* <p className="text-gray-600 mb-4">
-          {product.description}
-        </p> */}
         <div className="flex justify-between items-center">
           <span className={`${nunito.className} text-lg text-gray-900`}>
-            ${price.toFixed(2)}
+            ${price} {currency}
           </span>
         </div>
       </div>

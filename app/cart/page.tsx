@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import CartItem from "@/src/presentation/common/components/CartItem";
 import { PageTransition } from "@/src/presentation/common/components/PageTransition";
 import { Raleway, Nunito_Sans, Poppins } from "next/font/google";
+import { shopApi } from "@/src/data/api/axios-client";
+import { supabase } from "@/src/providers/supabase-provider";
 
 const raleway = Raleway({
   variable: "--font-gest-raleway",
@@ -50,22 +52,40 @@ function CartPage() {
   const router = useRouter();
 
   const [data, setData] = useState<Cart>();
+  const [cartCount, setCartCount] = useState(0);
 
   const userCart = async () => {
     try {
-      const { data: cartData } = await axios.get("/cart/me", {
-        withCredentials: true,
-      });
+      const {
+        data: { user },
+        error,
+      } = await supabase.auth.getUser();
+      if (!error && user) {
+        if (user.id) {
+          const { data: cart } = await supabase
+            .from("carts")
+            .select("id")
+            .eq("user_id", user.id)
+            .single();
 
-      setData(cartData);
-    } catch (err) {
-      if (axios.isAxiosError(err) && err.response) {
-        const status = err.response.status;
+          if (cart) {
+            const { data: items } = await supabase
+              .from("cart_item")
+              .select("*")
+              .eq("cart_id", cart.id);
+            console.log(items);
 
-        if (status === 401) {
-          navigateTo("/login");
+            const totalItems =
+              items?.reduce((sum, item) => sum + (item as any).quantity, 0) ||
+              0;
+            setCartCount(totalItems);
+          }
         }
+      } else {
+        //setIsAutenticated(false);
       }
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -79,11 +99,11 @@ function CartPage() {
 
   return (
     <div className="w-full min-h-screen">
-      <PageTransition />
+      {/* <PageTransition /> */}
       <header className="py-4 px-2 flex justify-start items-center gap-4 font-bold sticky top-0 bg-white z-40 shadow-lg">
         <span className={`${raleway.className} pl-2 text-xl`}>Cart</span>
         <div className="w-8 h-8 rounded-full bg-blue-100 shadow-xs flex justify-center items-center">
-          {data && data.items.length}
+          {cartCount}
         </div>
       </header>
       <section className="px-2 pt-4  flex flex-col items-center">

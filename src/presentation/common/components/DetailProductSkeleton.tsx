@@ -24,6 +24,9 @@ export function DetailProductSkeleton() {
         <div className="h-5 bg-gray-200 rounded-lg shimmer w-11/12" />
         <div className="h-5 bg-gray-200 rounded-lg shimmer w-8/12" />
       </div>
+      <div className="flex justify-end items-center">
+        <div className="h-7 w-20 bg-gray-200 rounded-xl shimmer" />
+      </div>
     </div>
   );
 }

@@ -16,6 +16,8 @@ import { Raleway, Nunito_Sans, Poppins } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import { Search } from "lucide-react";
+
 const raleway = Raleway({
   variable: "--font-gest-raleway",
   weight: "800",
@@ -77,6 +79,21 @@ function HomePage() {
   };
 
   useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+    } else {
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
     buscarProductos();
   }, []);
 
@@ -85,7 +102,7 @@ function HomePage() {
   };
 
   return (
-    <div className=" w-full min-h-screen">
+    <div className={`w-full min-h-screen`}>
       {/* <PageTransition /> */}
       <header className="py-4 px-2 flex md:justify-around items-center gap-4 font-bold sticky top-0 bg-white z-40 shadow-lg">
         <div className="flex items-center flex-1 gap-2">
@@ -106,9 +123,9 @@ function HomePage() {
           type="button"
           className="md:hidden bg-white text-white px-4 py-2 rounded-xl flex items-center justify-center"
           aria-label="Buscar"
-          onClick={() => alert("Mostrar búsqueda móvil")}
+          // onClick={() => }
         >
-          🔍
+          <Search size={25} strokeWidth={2} color="#000" />
         </button>
       </header>
 
@@ -131,6 +148,7 @@ function HomePage() {
               alt={product.name}
               title={product.name}
               price={product.price}
+              currency={product.currency}
               openSheet={() => {
                 setDetailId(product.id);
                 toggleSheet();

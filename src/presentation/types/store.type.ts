@@ -12,7 +12,7 @@ export type Product = {
   name: string;
   description: string;
   price: number;
-  currency: number;
+  currency: string;
   //category: string;
   image_url: string;
   is_active: boolean;

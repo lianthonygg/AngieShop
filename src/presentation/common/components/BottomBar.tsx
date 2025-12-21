@@ -13,7 +13,7 @@ function BottomBar() {
   const pathname = usePathname();
 
   return (
-    <footer className="fixed bottom-0 left-0 right-0 flex justify-between px-2 items-center w-full h-16 bg-white/95 shadow-top">
+    <footer className="fixed bottom-0 left-0 right-0 flex justify-between px-2 items-center w-full h-16 bg-white/95 shadow-top z-10">
       <BarItem
         title="Tienda"
         icon={"/Shop.svg"}
@@ -38,12 +38,12 @@ function BottomBar() {
         tag="cart"
         pathname={pathname}
       />
-      {/* <BarItem
+      <BarItem
         title="Perfil"
         icon={"/Profile.svg"}
         tag="profile"
         pathname={pathname}
-      /> */}
+      />
     </footer>
   );
 }
