@@ -4,17 +4,17 @@ import { NextResponse } from "next/server";
 import type { CookieOptions } from "@supabase/ssr";
 
 export async function GET() {
-  const cookieStore = await cookies(); // ← ¡AWAIT aquí! Es async en Next 15
+  const cookieStore = cookies();
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
-        getAll() {
-          return cookieStore.getAll();
+        async getAll() {
+          return (await cookieStore).getAll();
         },
-        setAll(
+        async setAll(
           cookiesToSet: {
             name: string;
             value: string;
@@ -22,12 +22,10 @@ export async function GET() {
           }[]
         ) {
           try {
-            cookiesToSet.forEach(({ name, value, options }) => {
-              cookieStore.set(name, value, options);
+            cookiesToSet.forEach(async ({ name, value, options }) => {
+              (await cookieStore).set(name, value, options);
             });
-          } catch {
-            // Ignora si falla (puede pasar si hay middleware manejando refresh)
-          }
+          } catch {}
         },
       },
     }
