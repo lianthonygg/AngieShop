@@ -1,3 +1,4 @@
+"use client";
 import { Calendar, Mail } from "lucide-react";
 import Avatar from "../components/Avatar";
 import Header from "../components/Header";
@@ -5,7 +6,7 @@ import Stat from "../components/Stat";
 import LogoutButton from "../components/LogoutButton";
 import SignInWithGoogleSection from "../components/SignInWithGoogleSection";
 import Footer from "../components/Footer";
-import BottomBar from "@/src/presentation/common/components/BottomBar";
+import BottomBar from "@/src/features/common/presentation/components/BottomBar";
 import { useProfile } from "../hooks/useProfile";
 import Loading from "../components/Loading";
 

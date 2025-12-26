@@ -1,13 +1,13 @@
 "use client";
 import Image from "next/image";
 import axios from "axios";
-import BottomBar from "@/src/presentation/common/components/BottomBar";
+import BottomBar from "@/src/features/common/presentation/components/BottomBar";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import CartItem from "@/src/presentation/common/components/CartItem";
 import { PageTransition } from "@/src/presentation/common/components/PageTransition";
 import { Raleway, Nunito_Sans, Poppins } from "next/font/google";
-import { shopApi } from "@/src/data/api/axios-client";
+import { shopApi } from "@/src/features/common/data/api/axios-client";
 import { supabase } from "@/src/providers/supabase-provider";
 
 const raleway = Raleway({

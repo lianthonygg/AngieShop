@@ -1,7 +1,7 @@
 "use client";
-import BottomBar from "@/src/presentation/common/components/BottomBar";
+import BottomBar from "@/src/features/common/presentation/components/BottomBar";
 import { PageTransition } from "@/src/presentation/common/components/PageTransition";
-import ProductCard from "@/src/presentation/common/components/ProductCard";
+import ProductCard from "@/src/features/store/presentation/components/ProductCard";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";

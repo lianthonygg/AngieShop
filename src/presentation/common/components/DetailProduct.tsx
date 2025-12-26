@@ -1,10 +1,10 @@
-import { shopApi } from "@/src/data/api/axios-client";
+import { shopApi } from "@/src/features/common/data/api/axios-client";
 import { AnimatePresence, motion } from "framer-motion";
 import { ShoppingCart, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Product, ProductByIdResponse, Banner } from "../../types/store.type";
 import { DetailProductSkeleton } from "./DetailProductSkeleton";
-import BannerCarousel from "./BannerCarousel";
+import BannerCarousel from "../../../features/store/presentation/components/BannerCarousel";
 
 type DetailProductProps = {
   id: string;

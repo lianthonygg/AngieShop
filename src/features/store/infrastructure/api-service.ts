@@ -1,19 +1,19 @@
 import { shopApi } from "@/src/features/common/data/api/axios-client";
-import { ProfileResponse, ProfileError } from "../domain/types/profile";
 import {
   createError,
   createSuccess,
   Result,
 } from "../../common/domain/types/result";
+import { ProductError, ProductResponse } from "../domain/types/store";
 
-interface GetProfileApiService {
-  getProfile: () => Promise<Result<ProfileResponse, ProfileError>>;
+interface GetProductApiService {
+  getProducts: () => Promise<Result<ProductResponse, ProductError>>;
 }
 
-export const getProfileApiService = (): GetProfileApiService => {
-  async function getProfile(): Promise<Result<ProfileResponse, ProfileError>> {
+export const getProductApiService = (): GetProductApiService => {
+  async function getProducts(): Promise<Result<ProductResponse, ProductError>> {
     try {
-      const { data } = await shopApi.get<ProfileResponse>(`/auth/me`);
+      const { data } = await shopApi.get<ProductResponse>(`/products`);
       return createSuccess(data);
     } catch (error: any) {
       if (error.response) {
@@ -36,6 +36,6 @@ export const getProfileApiService = (): GetProfileApiService => {
   }
 
   return {
-    getProfile,
+    getProducts,
   };
 };

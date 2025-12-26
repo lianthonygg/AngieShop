@@ -1,5 +1,5 @@
 "use client";
-import BottomBar from "@/src/presentation/common/components/BottomBar";
+import BottomBar from "@/src/features/common/presentation/components/BottomBar";
 import { PageTransition } from "@/src/presentation/common/components/PageTransition";
 import React from "react";
 

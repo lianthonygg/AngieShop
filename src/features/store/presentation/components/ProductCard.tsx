@@ -3,7 +3,7 @@ import { NextFontWithVariable } from "next/dist/compiled/@next/font";
 import { Nunito_Sans } from "next/font/google";
 import Image from "next/image";
 import { useState } from "react";
-import supabaseLoader from "../lib/supabase-loader";
+import supabaseLoader from "../../../common/lib/supabase-loader";
 
 const nunito = Nunito_Sans({
   variable: "--font-gest-sans",

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ShoppingBag } from "lucide-react";
 import { FaGoogle } from "react-icons/fa";
-import { signInWithGoogle } from "@/src/data/login/google";
+import { signInWithGoogle } from "@/src/features/common/data/login/google";
 
 const SignInWithGoogleSection = () => {
   return (
