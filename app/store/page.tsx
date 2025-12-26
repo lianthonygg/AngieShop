@@ -39,14 +39,12 @@ const poppins = Poppins({
 const banners: Banner[] = [
   {
     id: 1,
-    image_url:
-      "https://fanzjptylyuvwvlotopk.supabase.co/storage/v1/object/public/product-images/tecnology-banner.jpg",
+    image_url: "product-images/tecnology-banner.avif",
     slug: "Tecnologia",
   },
   {
     id: 2,
-    image_url:
-      "https://fanzjptylyuvwvlotopk.supabase.co/storage/v1/object/public/product-images/perfumes-banner.jpg",
+    image_url: "product-images/perfumes-banner.avif",
     slug: "Perfumeria",
   },
 ];

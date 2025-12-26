@@ -16,6 +16,12 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "fanzjptylyuvwvlotopk.supabase.co",
+        pathname: "/storage/v1/render/image/public/**",
+      },
+      {
+        protocol: "https",
+        hostname: "thumbs.dreamstime.com",
+        pathname: "/b/**",
       },
     ],
   },

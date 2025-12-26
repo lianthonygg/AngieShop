@@ -3,6 +3,7 @@ import { NextFontWithVariable } from "next/dist/compiled/@next/font";
 import { Nunito_Sans } from "next/font/google";
 import Image from "next/image";
 import { useState } from "react";
+import supabaseLoader from "../lib/supabase-loader";
 
 const nunito = Nunito_Sans({
   variable: "--font-gest-sans",
@@ -46,14 +47,18 @@ function ProductCard({
       onClick={openSheet}
       className="border border-gray-200 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow"
     >
-      <div className="relative w-full h-40 overflow-hidden rounded-t-xl">
+      <div className="relative w-full h-52 md:h-64 overflow-hidden bg-gray-100 rounded-t-lg">
         {src ? (
           <Image
-            src={src}
+            src={`product-images/${src}`}
             alt={alt}
             fill
-            sizes="(max-width: 768px) 50vw, 25vw"
+            loader={supabaseLoader}
+            loading="lazy"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover"
+            placeholder="blur"
+            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD..."
           />
         ) : (
           <div className="w-full h-full bg-gray-200 animate-pulse" />

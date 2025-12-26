@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ShoppingBag } from "lucide-react";
 import { FaGoogle } from "react-icons/fa";
 import { signInWithGoogle } from "@/src/data/login/google";
@@ -6,9 +7,14 @@ const SignInWithGoogleSection = () => {
   return (
     <div>
       <div className="mb-12 max-w-sm md:max-w-md">
-        <img
+        <Image
           src="https://thumbs.dreamstime.com/b/vector-pop-art-illustration-young-sexy-happy-girl-jeans-t-shirt-holding-shopping-bags-woman-showing-her-purchases-back-183732380.jpg"
           alt="Chica feliz comprando en Angie Shop"
+          width={500}
+          height={500}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          placeholder="blur"
+          blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD..."
           className="w-full h-auto rounded-3xl shadow-2xl border-8 border-white/70"
         />
       </div>

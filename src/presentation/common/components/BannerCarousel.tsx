@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
@@ -8,6 +9,7 @@ import {
   CarouselPrevious,
 } from "./ui/carousel";
 import { Banner } from "../../types/store.type";
+import supabaseLoader from "../lib/supabase-loader";
 
 export default function BannerCarousel({ banners }: { banners: Banner[] }) {
   return (
@@ -26,10 +28,15 @@ export default function BannerCarousel({ banners }: { banners: Banner[] }) {
           {banners.map(({ id, image_url, slug }) => (
             <CarouselItem key={id} className="pl-4 basis-full">
               <div className="relative w-full aspect-video md:aspect-[21/9] lg:aspect-[3/1]">
-                <img
+                <Image
                   src={image_url}
                   alt={slug}
+                  fill
+                  loader={supabaseLoader}
                   className="absolute inset-0 w-full h-full object-cover object-center rounded-2xl"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  placeholder="blur"
+                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD..."
                 />
               </div>
             </CarouselItem>

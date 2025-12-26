@@ -1,20 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
 import { ProfileResponse } from "../domain/types/profile";
 import { getProfileApiService } from "../infrastructure/api-service";
+import { supabase } from "@/src/providers/supabase-provider";
 
-export const useGetProfile = (enabled: boolean) => {
+export const useGetProfile = () => {
   return useQuery({
     queryKey: ["profile"],
-    queryFn: async (): Promise<ProfileResponse> => {
+    queryFn: async () => {
       const profileService = getProfileApiService();
 
       try {
-        const result = await profileService.getProfile();
+        const {
+          data: { user },
+          error,
+        } = await supabase.auth.getUser();
 
-        if (result.success) {
-          return result.data;
-        } else {
-          throw new Error(result.error.message);
+        if (!error && user) {
+          return user as ProfileResponse;
         }
       } catch (err: any) {
         throw new Error(
@@ -22,7 +24,8 @@ export const useGetProfile = (enabled: boolean) => {
         );
       }
     },
-    enabled,
+    staleTime: 1000 * 60 * 10,
+    gcTime: Infinity,
     retry: false,
   });
 };
