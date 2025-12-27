@@ -8,8 +8,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/src/features/common/presentation/components/ui/carousel";
-import { Banner } from "../../../../presentation/types/store.type";
 import supabaseLoader from "../../../common/lib/supabase-loader";
+import { Banner } from "@/src/features/common/domain/types/common.types";
 
 export default function BannerCarousel({ banners }: { banners: Banner[] }) {
   return (

@@ -1,6 +1,5 @@
-import { Product } from "@/src/presentation/types/store.type";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useGetProducts } from "../../interceptors/use-get-products";
 
 export const useProducts = () => {

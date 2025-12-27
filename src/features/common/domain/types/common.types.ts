@@ -1,16 +1,3 @@
-export interface ProductResponse {
-  data: Product[];
-}
-
-export interface ProductError {
-  error: string;
-  message: string;
-}
-
-export interface ProductByIdResponse {
-  data: Product;
-}
-
 export interface Product {
   id: string;
   slug: string;

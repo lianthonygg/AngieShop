@@ -4,7 +4,7 @@ import {
   createSuccess,
   Result,
 } from "../../common/domain/types/result";
-import { ProductError, ProductResponse } from "../domain/types/store";
+import { ProductError, ProductResponse } from "../domain/types/store.types";
 
 interface GetProductApiService {
   getProducts: () => Promise<Result<ProductResponse, ProductError>>;

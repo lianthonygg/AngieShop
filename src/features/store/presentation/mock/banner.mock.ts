@@ -1,4 +1,4 @@
-import { Banner } from "@/src/presentation/types/store.type";
+import { Banner } from "@/src/features/common/domain/types/common.types";
 
 export const bannersMock: Banner[] = [
   {

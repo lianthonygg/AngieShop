@@ -1,15 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
-import { getProductApiService } from "../infrastructure/api-service";
+import { getDetailProductApiService } from "../infrastructure/api-service";
+import { AnyCnameRecord } from "node:dns";
 
-export const useGetProducts = () => {
+interface GetDetailParams {
+  id: string;
+}
+
+export const useGetDetail = ({ id }: GetDetailParams) => {
   return useQuery({
-    queryKey: ["products"],
+    queryKey: ["productById", id],
     queryFn: async () => {
-      const productService = getProductApiService();
+      const detailProductService = getDetailProductApiService();
 
       try {
-        const result = await productService.getProducts();
-
+        const result = await detailProductService.getProductById(id);
         if (result.success) {
           return result.data;
         } else {
@@ -21,8 +25,5 @@ export const useGetProducts = () => {
         );
       }
     },
-    staleTime: 1000 * 60 * 10,
-    gcTime: Infinity,
-    retry: false,
   });
 };

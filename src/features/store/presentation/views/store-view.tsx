@@ -8,6 +8,7 @@ import { bannersMock } from "../mock/banner.mock";
 import { ProductCardSkeleton } from "../components/ProductCardSkeleton";
 import { useProducts } from "../hooks/useProducts";
 import { nunito, poppins, raleway } from "../hooks/useFonts";
+import Header from "../components/Header";
 
 const StoreView = () => {
   const { data, handleDetailId } = useProducts();
@@ -15,30 +16,7 @@ const StoreView = () => {
   return (
     <div className={`w-full min-h-screen`}>
       {/* <PageTransition /> */}
-      <header className="py-4 px-2 flex md:justify-around items-center gap-4 font-bold sticky top-0 bg-white z-40 shadow-lg">
-        <div className="flex items-center flex-1 gap-2">
-          <img
-            src="/logo.png"
-            alt="Logo Angie Shop"
-            className="w-10 h-10 object-contain"
-          />
-          <span className={`${raleway.className} text-xl`}>Angie Shop</span>
-        </div>
-        <input
-          type="text"
-          className={`${poppins.className} hidden md:block px-3 py-1 text-black placeholder:text-black border rounded-xl focus:outline-none focus:ring-1 focus:ring-primary flex-shrink-0`}
-          placeholder="Buscar"
-        />
-
-        <button
-          type="button"
-          className="md:hidden bg-white text-white px-4 py-2 rounded-xl flex items-center justify-center"
-          aria-label="Buscar"
-          // onClick={() => }
-        >
-          <Search size={25} strokeWidth={2} color="#000" />
-        </button>
-      </header>
+      <Header />
 
       <main className="md:max-w-4xl mx-auto px-3 pt-3 pb-20">
         <BannerCarousel banners={bannersMock} />
