@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/src/providers/supabase-provider";
+import { supabase } from "@/src/features/common/presentation/providers/supabase-provider";
 import { useGetProfile } from "../../interceptors/use-get-profile";
 
 export const useProfile = () => {

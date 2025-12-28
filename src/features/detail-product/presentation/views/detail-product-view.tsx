@@ -1,9 +1,7 @@
 "use client";
 import BannerCarousel from "@/src/features/store/presentation/components/BannerCarousel";
-import { DetailProductSkeleton } from "@/src/presentation/common/components/DetailProductSkeleton";
-import { AnimatePresence, motion } from "framer-motion";
+import { DetailProductSkeleton } from "@/src/features/detail-product/presentation/components/DetailProductSkeleton";
 import { ArrowLeft, ShoppingCart } from "lucide-react";
-import React from "react";
 import { useGetDetail } from "../../interceptors/use-get-detail";
 import { useRouter } from "next/navigation";
 

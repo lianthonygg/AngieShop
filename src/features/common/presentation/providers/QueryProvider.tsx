@@ -3,7 +3,7 @@
 import { QueryClientProvider } from "@tanstack/react-query";
 import React from "react";
 import { queryClient } from "../../infrastructure/query-client/config";
-import SupabaseProvider from "@/src/providers/supabase-provider";
+import SupabaseProvider from "@/src/features/common/presentation/providers/supabase-provider";
 
 function QueryProvider({ children }: { children: React.ReactNode }) {
   return (

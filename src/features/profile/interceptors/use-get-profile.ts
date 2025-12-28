@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { ProfileResponse } from "../domain/types/profile";
 import { getProfileApiService } from "../infrastructure/api-service";
-import { supabase } from "@/src/providers/supabase-provider";
+import { supabase } from "@/src/features/common/presentation/providers/supabase-provider";
 
 export const useGetProfile = () => {
   return useQuery({
