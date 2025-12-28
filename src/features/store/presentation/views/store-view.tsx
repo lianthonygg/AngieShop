@@ -7,7 +7,6 @@ import BannerCarousel from "../components/BannerCarousel";
 import { bannersMock } from "../mock/banner.mock";
 import { ProductCardSkeleton } from "../components/ProductCardSkeleton";
 import { useProducts } from "../hooks/useProducts";
-import { nunito, poppins, raleway } from "../hooks/useFonts";
 import Header from "../components/Header";
 
 const StoreView = () => {
@@ -33,7 +32,6 @@ const StoreView = () => {
               key={product.id}
               index={index}
               slug={product.slug}
-              font={nunito}
               src={product.image_url}
               alt={product.name}
               title={product.name}

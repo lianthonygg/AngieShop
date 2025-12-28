@@ -1,6 +1,5 @@
 import { Search } from "lucide-react";
 import React from "react";
-import { poppins, raleway } from "../hooks/useFonts";
 
 const Header = () => {
   return (
@@ -11,11 +10,11 @@ const Header = () => {
           alt="Logo Angie Shop"
           className="w-10 h-10 object-contain"
         />
-        <span className={`${raleway.className} text-xl`}>Angie Shop</span>
+        <span className={`font-raleway text-xl`}>Angie Shop</span>
       </div>
       <input
         type="text"
-        className={`${poppins.className} hidden md:block px-3 py-1 text-black placeholder:text-black border rounded-xl focus:outline-none focus:ring-1 focus:ring-primary flex-shrink-0`}
+        className={`font-poppins hidden md:block px-3 py-1 text-black placeholder:text-black border rounded-xl focus:outline-none focus:ring-1 focus:ring-primary flex-shrink-0`}
         placeholder="Buscar"
       />
 

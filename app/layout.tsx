@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import {
+  Geist,
+  Geist_Mono,
+  Nunito_Sans,
+  Poppins,
+  Raleway,
+} from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -15,6 +21,27 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   display: "swap",
   subsets: ["latin"],
+});
+
+const raleway = Raleway({
+  variable: "--font-gest-raleway",
+  display: "swap",
+  weight: "800",
+  subsets: ["latin"],
+});
+
+const nunito = Nunito_Sans({
+  variable: "--font-gest-nunito",
+  display: "swap",
+  weight: "300",
+  subsets: ["latin"],
+});
+
+const poppins = Poppins({
+  variable: "--font-gest-poppins",
+  display: "swap",
+  subsets: ["latin"],
+  weight: "200",
 });
 
 export const metadata: Metadata = {
@@ -58,7 +85,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${raleway.variable} ${nunito.variable} ${poppins.variable} antialiased`}
       >
         <QueryProvider>{children}</QueryProvider>
         <Analytics />

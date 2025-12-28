@@ -1,5 +1,3 @@
-import { Minus, Plus, ShoppingBag, ShoppingCart } from "lucide-react";
-import { NextFontWithVariable } from "next/dist/compiled/@next/font";
 import { Nunito_Sans } from "next/font/google";
 import Image from "next/image";
 import { useState } from "react";
@@ -15,7 +13,6 @@ type ProductCardProps = {
   index: number;
   slug: string;
   openDetail: (slug: string) => void;
-  font: NextFontWithVariable;
   src: string;
   alt: string;
   title: string;
@@ -27,14 +24,12 @@ function ProductCard({
   index,
   slug,
   openDetail,
-  font,
   src,
   alt,
   title,
   price,
   currency,
 }: ProductCardProps) {
-  const isPriority = index < 2;
   const [count, setCount] = useState(1);
 
   const increment = () => {
@@ -48,17 +43,17 @@ function ProductCard({
   return (
     <div
       onClick={() => openDetail(slug)}
-      className="border border-gray-200 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow"
+      className="border border-gray-200 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointers"
     >
-      <div className="relative w-full h-52 md:h-64 overflow-hidden bg-gray-100 rounded-t-lg">
+      <div className="relative w-full aspect-square overflow-hidden bg-gray-100 rounded-t-lg">
         {src ? (
           <Image
             src={`product-images/${src}`}
             alt={alt}
             fill
             loader={supabaseLoader}
-            loading={isPriority ? "eager" : "lazy"}
-            priority={isPriority}
+            loading={index < 4 ? "eager" : "lazy"}
+            priority={index < 4}
             sizes="(max-width: 768px) 45vw, 300px"
             className="object-cover"
           />
@@ -68,7 +63,7 @@ function ProductCard({
       </div>
 
       <div className="p-3">
-        <h3 className={`${font.className} mb-2 text-gray-800`}>{title}</h3>
+        <h3 className={`font-nunito mb-2 text-gray-800`}>{title}</h3>
         <div className="flex justify-between items-center">
           <span className={`${nunito.className} text-lg text-gray-900`}>
             ${price} {currency}
