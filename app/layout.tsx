@@ -45,6 +45,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://angie-shop.vercel.app"),
   title: "Angie Shop | Perfumes y Tecnología en Matanzas, Cuba",
   description:
     "Tienda online de perfumes y tecnología en Matanzas, Cuba. Encuentra las mejores ofertas en fragancias y gadgets de última generación.",
