@@ -11,7 +11,7 @@ import { nunito, poppins, raleway } from "../hooks/useFonts";
 import Header from "../components/Header";
 
 const StoreView = () => {
-  const { data, handleDetailId } = useProducts();
+  const { data, handleNavigateTo } = useProducts();
 
   return (
     <div className={`w-full min-h-screen`}>
@@ -31,15 +31,15 @@ const StoreView = () => {
           {data?.data.map((product) => (
             <ProductCard
               key={product.id}
-              id={product.id}
+              slug={product.slug}
               font={nunito}
               src={product.image_url}
               alt={product.name}
               title={product.name}
               price={product.price}
               currency={product.currency}
-              openSheet={() => {
-                handleDetailId(product.id);
+              openDetail={(slug) => {
+                handleNavigateTo(`/store/product/${slug}`);
               }}
             />
           ))}

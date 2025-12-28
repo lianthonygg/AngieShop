@@ -6,18 +6,18 @@ const supabase = createClient(
   process.env.SUPABASE_KEY!
 );
 
-type tParams = Promise<{ id: string }>;
+type tParams = Promise<{ slug: string }>;
 
 export async function GET(
   request: NextRequest,
   { params }: { params: tParams }
 ) {
-  const { id } = await params;
+  const { slug } = await params;
 
   const { data, error } = await supabase
     .from("products")
     .select("*, product_images(*)")
-    .eq("id", id)
+    .eq("slug", slug)
     .single();
 
   if (error) {

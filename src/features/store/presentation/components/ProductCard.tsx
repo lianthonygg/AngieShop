@@ -12,8 +12,8 @@ const nunito = Nunito_Sans({
 });
 
 type ProductCardProps = {
-  id: string;
-  openSheet: () => void;
+  slug: string;
+  openDetail: (slug: string) => void;
   font: NextFontWithVariable;
   src: string;
   alt: string;
@@ -23,8 +23,8 @@ type ProductCardProps = {
 };
 
 function ProductCard({
-  id,
-  openSheet,
+  slug,
+  openDetail,
   font,
   src,
   alt,
@@ -44,7 +44,7 @@ function ProductCard({
 
   return (
     <div
-      onClick={openSheet}
+      onClick={() => openDetail(slug)}
       className="border border-gray-200 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow"
     >
       <div className="relative w-full h-52 md:h-64 overflow-hidden bg-gray-100 rounded-t-lg">

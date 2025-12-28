@@ -33,10 +33,11 @@ export default function BannerCarousel({ banners }: { banners: Banner[] }) {
                   alt={slug}
                   fill
                   loader={supabaseLoader}
-                  className="absolute inset-0 w-full h-full object-cover object-center rounded-2xl"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  placeholder="blur"
-                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD..."
+                  priority={id === banners[0].id}
+                  fetchPriority={id === banners[0].id ? "high" : "auto"}
+                  loading={id === banners[0].id ? "eager" : "lazy"}
+                  sizes="100vw"
+                  className="object-cover rounded-2xl"
                 />
               </div>
             </CarouselItem>

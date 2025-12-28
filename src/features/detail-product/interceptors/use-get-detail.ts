@@ -3,17 +3,17 @@ import { getDetailProductApiService } from "../infrastructure/api-service";
 import { AnyCnameRecord } from "node:dns";
 
 interface GetDetailParams {
-  id: string;
+  slug: string;
 }
 
-export const useGetDetail = ({ id }: GetDetailParams) => {
+export const useGetDetail = ({ slug }: GetDetailParams) => {
   return useQuery({
-    queryKey: ["productById", id],
+    queryKey: ["productBySlug", slug],
     queryFn: async () => {
       const detailProductService = getDetailProductApiService();
 
       try {
-        const result = await detailProductService.getProductById(id);
+        const result = await detailProductService.getProductBySlug(slug);
         if (result.success) {
           return result.data;
         } else {

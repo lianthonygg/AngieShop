@@ -10,18 +10,18 @@ import {
 } from "../domain/types/detail.types";
 
 interface GetDetailProductApiService {
-  getProductById: (
-    id: string
+  getProductBySlug: (
+    slug: string
   ) => Promise<Result<DetailProductResponse, DetailProductError>>;
 }
 
 export const getDetailProductApiService = (): GetDetailProductApiService => {
-  async function getProductById(
-    id: string
+  async function getProductBySlug(
+    slug: string
   ): Promise<Result<DetailProductResponse, DetailProductError>> {
     try {
       const { data } = await shopApi.get<DetailProductResponse>(
-        `/product/${id}`
+        `/products/${slug}`
       );
       return createSuccess(data);
     } catch (error: any) {
@@ -45,6 +45,6 @@ export const getDetailProductApiService = (): GetDetailProductApiService => {
   }
 
   return {
-    getProductById,
+    getProductBySlug,
   };
 };
