@@ -16,9 +16,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Angie Shop - Perfumes y Tecnología en Matanzas, Cuba",
+  title: "Angie Shop | Perfumes y Tecnología en Matanzas, Cuba",
   description:
     "Tienda online de perfumes y tecnología en Matanzas, Cuba. Encuentra las mejores ofertas en fragancias y gadgets de última generación.",
+  authors: [{ name: "Li Anthony", url: "https://lianthonygg.vercel.app" }],
+  robots: { index: true, follow: true },
   openGraph: {
     title: "Angie Shop",
     description:
@@ -37,7 +39,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Angie Shop",
+    title: "Angie Shop | Perfumes y Tecnología en Matanzas, Cuba",
     description: "Tienda online de perfumes y tecnología en Matanzas, Cuba.",
     images: ["https://angie-shop.vercel.app/favicon.ico"],
   },

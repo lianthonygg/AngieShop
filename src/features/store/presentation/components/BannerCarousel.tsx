@@ -7,78 +7,82 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi,
 } from "@/src/features/common/presentation/components/ui/carousel";
 import supabaseLoader from "../../../common/lib/supabase-loader";
 import { Banner } from "@/src/features/common/domain/types/common.types";
+import { useCallback, useEffect, useState } from "react";
 
 export default function BannerCarousel({ banners }: { banners: Banner[] }) {
-  const firstBanner = banners[0];
-  const restBanners = banners.slice(1);
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+
+  const handleSelect = useCallback(() => {
+    if (!api) return;
+    setCurrent(api.selectedScrollSnap());
+  }, [api]);
+
+  useEffect(() => {
+    if (!api) return;
+    api.on("select", handleSelect);
+    return () => {
+      api.off("select", handleSelect);
+    };
+  }, [api, handleSelect]);
 
   return (
     <div className="w-full relative select-none pb-5">
       <Carousel
+        setApi={setApi}
         plugins={[
           Autoplay({
             delay: 5000,
             stopOnInteraction: true,
             stopOnMouseEnter: true,
+            stopOnFocusIn: false,
           }),
         ]}
-        className="w-full h-[280px] md:h-[400px] lg:h-[500px] overflow-hidden rounded-2xl"
+        className="w-full overflow-hidden rounded-2xl"
       >
-        <CarouselContent className="w-full h-full">
-          <CarouselItem className="basis-full w-full h-full flex-shrink-0">
-            <div className="w-full h-full relative rounded-2xl overflow-hidden">
-              <Image
-                src={firstBanner.image_url}
-                alt={firstBanner.slug}
-                fill
-                loader={supabaseLoader}
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1200px"
-                priority={true}
-                fetchPriority="high"
-                quality={85}
-                className="object-cover w-full h-full"
-                placeholder="blur"
-              />
-            </div>
-          </CarouselItem>
-
-          {restBanners.map(({ id, image_url, slug }) => (
-            <CarouselItem
-              key={id}
-              className="basis-full w-full h-full flex-shrink-0"
-            >
-              <div className="w-full h-full relative rounded-2xl overflow-hidden">
+        <CarouselContent>
+          {banners.map(({ id, image_url, slug }, index) => (
+            <CarouselItem key={id}>
+              <div className="relative w-full aspect-[16/9] md:aspect-[21/9]">
                 <Image
                   src={image_url}
                   alt={slug}
                   fill
                   loader={supabaseLoader}
                   sizes="100vw"
-                  loading="lazy"
-                  fetchPriority="low"
-                  quality={75}
-                  className="object-cover w-full h-full"
-                  placeholder="blur"
+                  priority={index === 0}
+                  fetchPriority={index === 0 ? "high" : "auto"}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  quality={index === 0 ? 85 : 75}
+                  className="object-cover rounded-2xl"
                 />
               </div>
             </CarouselItem>
           ))}
         </CarouselContent>
-
-        <CarouselPrevious className="left-3 h-12 w-12 -mt-6" />
-        <CarouselNext className="right-3 h-12 w-12 -mt-6" />
+        <CarouselPrevious />
+        <CarouselNext />
       </Carousel>
-
-      <div className="flex justify-center gap-2 mt-3">
-        <div className="w-2 h-2 bg-white/50 rounded-full" />
-        <div className="w-2 h-2 bg-white rounded-full" />
-        {restBanners.length > 1 && (
-          <div className="w-2 h-2 bg-white/50 rounded-full" />
-        )}
-      </div>
+      {api && (
+        <div className="flex justify-center gap-3 mt-6">
+          {api.scrollSnapList().map((_, index) => (
+            <button
+              key={index}
+              onClick={() => api.scrollTo(index)}
+              className={`transition-all duration-300 rounded-full ${
+                index === current
+                  ? "bg-white w-10 h-3 shadow-md"
+                  : "bg-white/50 w-3 h-3 hover:bg-white/70"
+              }`}
+              aria-label={`Ir a slide ${index + 1}`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
