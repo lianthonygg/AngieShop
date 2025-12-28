@@ -9,9 +9,14 @@ import { ProductCardSkeleton } from "../components/ProductCardSkeleton";
 import { useProducts } from "../hooks/useProducts";
 import { nunito, poppins, raleway } from "../hooks/useFonts";
 import Header from "../components/Header";
+import { ProductResponse } from "../../domain/types/store.types";
 
-const StoreView = () => {
-  const { data, handleNavigateTo } = useProducts();
+const StoreView = ({
+  initialProducts,
+}: {
+  initialProducts: ProductResponse;
+}) => {
+  const { data, handleNavigateTo } = useProducts(initialProducts);
 
   return (
     <div className={`w-full min-h-screen`}>
@@ -28,9 +33,10 @@ const StoreView = () => {
           </section>
         )}
         <section className="grid grid-cols-2 gap-3">
-          {data?.data.map((product) => (
+          {data?.data.map((product, index) => (
             <ProductCard
               key={product.id}
+              index={index}
               slug={product.slug}
               font={nunito}
               src={product.image_url}

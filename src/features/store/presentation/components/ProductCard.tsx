@@ -12,6 +12,7 @@ const nunito = Nunito_Sans({
 });
 
 type ProductCardProps = {
+  index: number;
   slug: string;
   openDetail: (slug: string) => void;
   font: NextFontWithVariable;
@@ -23,6 +24,7 @@ type ProductCardProps = {
 };
 
 function ProductCard({
+  index,
   slug,
   openDetail,
   font,
@@ -32,6 +34,7 @@ function ProductCard({
   price,
   currency,
 }: ProductCardProps) {
+  const isPriority = index < 2;
   const [count, setCount] = useState(1);
 
   const increment = () => {
@@ -54,11 +57,10 @@ function ProductCard({
             alt={alt}
             fill
             loader={supabaseLoader}
-            loading="lazy"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            loading={isPriority ? "eager" : "lazy"}
+            priority={isPriority}
+            sizes="(max-width: 768px) 45vw, 300px"
             className="object-cover"
-            placeholder="blur"
-            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD..."
           />
         ) : (
           <div className="w-full h-full bg-gray-200 animate-pulse" />

@@ -1,11 +1,12 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useGetProducts } from "../../interceptors/use-get-products";
+import { ProductResponse } from "../../domain/types/store.types";
 
-export const useProducts = () => {
+export const useProducts = (initialProducts: ProductResponse) => {
   const router = useRouter();
 
-  const { data, error, isLoading, refetch } = useGetProducts();
+  const { data, error, isLoading, refetch } = useGetProducts(initialProducts);
   const [detailId, setDetailId] = useState("");
 
   const handleDetailId = (id: string) => {

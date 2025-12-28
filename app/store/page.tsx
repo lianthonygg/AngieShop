@@ -1,7 +1,10 @@
+import { productsQueryFn } from "@/src/features/store/infrastructure/product-fetcher";
 import { bannersMock } from "@/src/features/store/presentation/mock/banner.mock";
 import StoreView from "@/src/features/store/presentation/views/store-view";
 
 export default async function HomePage() {
+  const products = await productsQueryFn();
+
   return (
     <>
       <head>
@@ -12,7 +15,7 @@ export default async function HomePage() {
           fetchPriority="high"
         />
       </head>
-      <StoreView />
+      <StoreView initialProducts={products} />
     </>
   );
 }

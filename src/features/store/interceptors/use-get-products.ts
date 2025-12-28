@@ -1,26 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { getProductApiService } from "../infrastructure/api-service";
+import { productsQueryFn } from "../infrastructure/product-fetcher";
+import { ProductResponse } from "../domain/types/store.types";
 
-export const useGetProducts = () => {
+export const useGetProducts = (initialProducts: ProductResponse) => {
   return useQuery({
     queryKey: ["products"],
-    queryFn: async () => {
-      const productService = getProductApiService();
-
-      try {
-        const result = await productService.getProducts();
-
-        if (result.success) {
-          return result.data;
-        } else {
-          throw new Error(result.error.message);
-        }
-      } catch (err: any) {
-        throw new Error(
-          "No se puede establecer conexion" + (err.message || err)
-        );
-      }
-    },
+    queryFn: productsQueryFn,
+    initialData: initialProducts,
     staleTime: 1000 * 60 * 10,
     gcTime: Infinity,
     retry: false,
