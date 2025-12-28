@@ -1,12 +1,23 @@
+import { getProductApiService } from "@/src/features/store/infrastructure/api-service";
 import { productsQueryFn } from "@/src/features/store/infrastructure/product-fetcher";
 import { bannersMock } from "@/src/features/store/presentation/mock/banner.mock";
 import StoreView from "@/src/features/store/presentation/views/store-view";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
 
 export default async function HomePage() {
-  const products = await productsQueryFn();
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: ["products"],
+    queryFn: productsQueryFn,
+  });
 
   return (
-    <>
+    <HydrationBoundary state={dehydrate(queryClient)}>
       <head>
         <link
           rel="preload"
@@ -15,7 +26,7 @@ export default async function HomePage() {
           fetchPriority="high"
         />
       </head>
-      <StoreView initialProducts={products} />
-    </>
+      <StoreView />
+    </HydrationBoundary>
   );
 }
