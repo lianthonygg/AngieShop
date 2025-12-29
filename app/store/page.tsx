@@ -19,6 +19,7 @@ export default async function HomePage() {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <head>
+        <title>Tienda | Angie Shop</title>
         <link
           rel="preload"
           as="image"

@@ -1,6 +1,6 @@
 export function DetailProductSkeleton() {
   return (
-    <div className="border border-gray-200 rounded-xl overflow-hidden shadow-md animate-pulse">
+    <div className="border border-gray-200 rounded-xl overflow-hidden animate-pulse">
       {/* Imagen skeleton con shimmer */}
       <div className="relative w-full h-40 bg-gray-200">
         <div className="w-full h-full shimmer rounded-t-xl" />

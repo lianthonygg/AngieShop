@@ -15,7 +15,6 @@ const DetailProductView = ({ slug }: { slug: string }) => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header fijo con botón de volver */}
       <div className="sticky top-0 z-10 bg-white border-b border-gray-200">
         <div className="relative flex items-center justify-center py-4">
           <button
@@ -25,7 +24,7 @@ const DetailProductView = ({ slug }: { slug: string }) => {
           >
             <ArrowLeft className="w-6 h-6 text-gray-600" />
           </button>
-          <h1 className="text-lg font-medium">Detalle del producto</h1>
+          <h1 className="text-lg font-medium">Detalles del producto</h1>
         </div>
       </div>
 
