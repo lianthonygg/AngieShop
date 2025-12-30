@@ -6,7 +6,6 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
-import Head from "next/head";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -24,9 +23,6 @@ const ProductDetail = async ({ params }: PageProps) => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Head>
-        <title>product | Angie Shop</title>
-      </Head>
       <DetailProductView slug={slug} />
     </HydrationBoundary>
   );
@@ -38,7 +34,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const { data: product } = await detailQueryFn(slug);
   return {
-    title: `${product.name} | Angie Shop`,
+    title: product.name,
     description: product.description,
     keywords: [
       "Angie Shop",
@@ -52,7 +48,7 @@ export async function generateMetadata({
       "precio de " + product.name,
     ],
     openGraph: {
-      title: `${product.name} | Angie Shop`,
+      title: product.name,
       description: product.description,
       images: [
         {
@@ -68,7 +64,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: `${product.name} | Angie Shop`,
+      title: product.name,
       description: product.description,
       images: [
         `https://fanzjptylyuvwvlotopk.supabase.co/storage/v1/object/public/product-images/${product.image_url}`,

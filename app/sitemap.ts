@@ -1,12 +1,36 @@
 import { productsQueryFn } from "@/src/features/store/infrastructure/product-fetcher";
+import { createClient } from "@supabase/supabase-js";
 import { MetadataRoute } from "next";
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_KEY!
+);
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let products: Product[] = [];
 
   try {
-    const res = await productsQueryFn();
-    products = res.data || [];
+    const { data, error } = await supabase
+      .from("products")
+      .select(
+        `
+      id,
+      slug,
+      name,
+      description,
+      price,
+      currency,
+      image_url,
+      is_active,
+      sort_order
+    `
+      )
+      .order("sort_order", { ascending: true });
+
+    if (!error) {
+      products = data as Product[];
+    }
   } catch (err) {
     console.warn("No se pudieron cargar los productos para el sitemap.");
   }
