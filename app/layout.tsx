@@ -6,11 +6,12 @@ import {
   Poppins,
   Raleway,
 } from "next/font/google";
-import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import QueryProvider from "@/src/features/common/presentation/providers/QueryProvider";
 import { bannersMock } from "@/src/features/store/presentation/mock/banner.mock";
+import "./globals.css";
+import { Toaster } from "@/src/features/common/presentation/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -100,6 +101,7 @@ export default function RootLayout({
         <QueryProvider>{children}</QueryProvider>
         <Analytics />
         <SpeedInsights />
+        <Toaster />
       </body>
     </html>
   );

@@ -1,3 +1,4 @@
+"use client";
 import BottomBar from "@/src/features/common/presentation/components/BottomBar";
 import Image from "next/image";
 import Header from "../components/Header";

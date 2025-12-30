@@ -1,7 +1,9 @@
-"use client";
-import BottomBar from "@/src/features/common/presentation/components/BottomBar";
-import CartItem from "@/src/features/cart/presentation/components/CartItem";
 import CartView from "@/src/features/cart/presentation/views/cart-view";
+
+export const metadata = {
+  title: "Carrito | Angie Shop",
+  description: "Carrito de Compras de Angie Shop",
+};
 
 function CartPage() {
   return <CartView />;

@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import BannerCarousel from "@/src/features/common/presentation/components/BannerCarousel";
 import { useCreateCartItem } from "../../mutations/mutations";
 import { useSession } from "next-auth/react";
+import { toast } from "sonner";
 
 const DetailProductView = ({ slug }: { slug: string }) => {
   const router = useRouter();
@@ -23,6 +24,8 @@ const DetailProductView = ({ slug }: { slug: string }) => {
       product_id: response?.data.id ?? "",
       quantity: quantity,
     });
+    toast.success("Producto Agregado al Carrito");
+    handleNavigateTo("/store");
   };
 
   return (

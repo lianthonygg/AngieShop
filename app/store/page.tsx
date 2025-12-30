@@ -6,6 +6,11 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 
+export const metadata = {
+  title: "Tienda | Angie Shop",
+  description: "Tienda de Angie Shop",
+};
+
 export default async function HomePage() {
   const queryClient = new QueryClient();
 

@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Política de Privacidad - Angie Shop",
+  title: "Política de Privacidad | Angie Shop",
   description: "Política de privacidad de Angie Shop",
 };
 
@@ -62,7 +62,7 @@ export default function PrivacyPolicy() {
 
         <h2>7. Contacto</h2>
         <p>
-          Si tienes dudas, contáctanos por WhatsApp al [tu-número] o email [tu-email].
+          Si tienes dudas, contáctanos por email [angieshopcuba@gmail.com].
         </p>
 
         <p className="text-center mt-12">

@@ -51,7 +51,7 @@ export default function TermsOfService() {
 
         <h2>7. Contacto</h2>
         <p>
-          Para cualquier consulta: WhatsApp [tu-número] o email [tu-email].
+          Para cualquier consulta: Email [angieshopcuba@gmail.com].
         </p>
 
         <p className="text-center mt-12">
