@@ -1,6 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import { getDetailProductApiService } from "../infrastructure/api-service";
-import { AnyCnameRecord } from "node:dns";
 import { detailQueryFn } from "../infrastructure/detail-fetcher";
 
 interface GetDetailParams {

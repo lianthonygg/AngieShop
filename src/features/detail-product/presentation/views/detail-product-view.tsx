@@ -1,16 +1,28 @@
 "use client";
-import BannerCarousel from "@/src/features/store/presentation/components/BannerCarousel";
 import { DetailProductSkeleton } from "@/src/features/detail-product/presentation/components/DetailProductSkeleton";
 import { ArrowLeft, ShoppingCart } from "lucide-react";
 import { useGetDetail } from "../../interceptors/use-get-detail";
 import { useRouter } from "next/navigation";
+import BannerCarousel from "@/src/features/common/presentation/components/BannerCarousel";
+import { useCreateCartItem } from "../../mutations/mutations";
+import { useSession } from "next-auth/react";
 
 const DetailProductView = ({ slug }: { slug: string }) => {
   const router = useRouter();
+  const { data: session } = useSession();
   const { data: response, isLoading } = useGetDetail({ slug });
-
+  const { mutate: createCartItem } = useCreateCartItem(
+    session?.user?.cartId ?? ""
+  );
   const handleNavigateTo = (url: string) => {
     router.push(url);
+  };
+
+  const handleSubmit = (quantity: number) => {
+    createCartItem({
+      product_id: response?.data.id ?? "",
+      quantity: quantity,
+    });
   };
 
   return (
@@ -66,7 +78,10 @@ const DetailProductView = ({ slug }: { slug: string }) => {
       {/* Botón de agregar al carrito - fijo en la parte inferior */}
       {!isLoading && response && (
         <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 py-4">
-          <button className="w-full flex items-center justify-center gap-3 bg-primary text-white font-medium px-6 py-4 rounded-full shadow-lg hover:bg-primary/90 transition-all duration-300">
+          <button
+            onClick={() => handleSubmit(1)}
+            className="w-full flex items-center justify-center gap-3 bg-primary text-white font-medium px-6 py-4 rounded-full shadow-lg hover:bg-primary/90 transition-all duration-300"
+          >
             <ShoppingCart size={22} strokeWidth={2} />
             <span className="text-lg">Agregar al carrito</span>
           </button>

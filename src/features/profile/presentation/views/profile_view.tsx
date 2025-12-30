@@ -14,9 +14,9 @@ const ProfileView = () => {
   const { isAuthenticated, data, error, handleLogout, isLoading } =
     useProfile();
 
-  const { user_metadata, app_metadata, created_at, email } = data ?? {};
+  const { name, email, image, createdAt } = data ?? {};
 
-  const formattedDate = new Date(created_at ?? "").toLocaleDateString("es-ES", {
+  const formattedDate = new Date(createdAt ?? "").toLocaleDateString("es-ES", {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -35,10 +35,7 @@ const ProfileView = () => {
         {isAuthenticated ? (
           <div>
             <div className="bg-white/70 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/50 p-8 md:p-10">
-              <Avatar
-                avatarUrl={user_metadata?.avatar_url ?? ""}
-                fullName={user_metadata?.full_name ?? ""}
-              />
+              <Avatar avatarUrl={image ?? ""} fullName={name ?? ""} />
 
               <div className="space-y-6">
                 <Stat

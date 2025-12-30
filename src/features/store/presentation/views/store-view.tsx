@@ -3,11 +3,11 @@
 import BottomBar from "@/src/features/common/presentation/components/BottomBar";
 import ProductCard from "../components/ProductCard";
 import { Search } from "lucide-react";
-import BannerCarousel from "../components/BannerCarousel";
 import { bannersMock } from "../mock/banner.mock";
 import { ProductCardSkeleton } from "../components/ProductCardSkeleton";
 import { useProducts } from "../hooks/useProducts";
 import Header from "../components/Header";
+import BannerCarousel from "@/src/features/common/presentation/components/BannerCarousel";
 
 const StoreView = () => {
   const { data, handleNavigateTo } = useProducts();

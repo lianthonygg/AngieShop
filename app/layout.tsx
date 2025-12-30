@@ -10,6 +10,7 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import QueryProvider from "@/src/features/common/presentation/providers/QueryProvider";
+import { bannersMock } from "@/src/features/store/presentation/mock/banner.mock";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -85,6 +86,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link
+          rel="preload"
+          as="image"
+          href={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/render/image/public/${bannersMock[0].image_url}?width=768&resize=contain&quality=85`}
+          fetchPriority="high"
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${raleway.variable} ${nunito.variable} ${poppins.variable} antialiased`}
       >

@@ -1,7 +1,7 @@
-import { getDetailProductApiService } from "./api-service";
+import { detailProductApiService } from "./api-service";
 
 export const detailQueryFn = async (slug: string) => {
-  const detailProductService = getDetailProductApiService();
+  const detailProductService = detailProductApiService();
 
   try {
     const result = await detailProductService.getProductBySlug(slug);
