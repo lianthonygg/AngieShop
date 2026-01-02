@@ -1,10 +1,12 @@
 import { shopApi } from "../../common/data/api/axios-client";
+import { Banner } from "../../common/domain/types/common.types";
 import {
   createError,
   createSuccess,
   Result,
 } from "../../common/domain/types/result";
 import { CreateCartItemRequest } from "../../common/domain/validations/create-cartitem.validation";
+import { supabaseAdmin } from "../../common/lib/supabase/server";
 import {
   DetailProductError,
   DetailProductResponse,
@@ -25,10 +27,37 @@ export const detailProductApiService = (): DetailProductApiService => {
     slug: string
   ): Promise<Result<DetailProductResponse, DetailProductError>> {
     try {
-      const { data } = await shopApi.get<DetailProductResponse>(
-        `/products/${slug}`
-      );
-      return createSuccess(data);
+      const { data, error } = await supabaseAdmin
+        .from("products")
+        .select("*, product_images(*)")
+        .eq("slug", slug)
+        .single();
+
+      if (error) {
+        return createError({
+          error: error.message,
+          message: "Error al obtener los productos",
+        });
+      }
+
+      return createSuccess({
+        data: {
+          id: data.id,
+          name: data.name,
+          description: data.description,
+          price: data.price,
+          currency: data.currency,
+          image_url: data.image_url,
+          product_images: data.product_images.map(
+            (image: any) =>
+              ({
+                id: image.id,
+                image_url: image.url,
+                slug: image.slug,
+              } as Banner)
+          ),
+        },
+      } as DetailProductResponse);
     } catch (error: any) {
       if (error.response) {
         return createError({

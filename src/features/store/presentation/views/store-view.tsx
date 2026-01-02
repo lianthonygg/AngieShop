@@ -1,5 +1,4 @@
 "use client";
-
 import BottomBar from "@/src/features/common/presentation/components/BottomBar";
 import ProductCard from "../components/ProductCard";
 import { Heart } from "lucide-react";
@@ -57,7 +56,6 @@ const StoreView = ({ products }: StoreViewProps) => {
       <footer className="bg-gradient-to-b from-gray-50 to-white border-t border-gray-200 mt-auto">
         <div className="max-w-7xl mx-auto px-6 py-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left">
-            {/* Columna 1: Mensaje con amor + íconos sociales (placeholder) */}
             <div className="flex flex-col items-center md:items-start">
               <div className="flex items-center gap-3 mb-6">
                 <Heart className="w-8 h-8 text-pink-500 fill-pink-500" />
@@ -70,7 +68,6 @@ const StoreView = ({ products }: StoreViewProps) => {
                 vos, con productos seleccionados y atención personalizada.
               </p>
 
-              {/* Placeholder para redes sociales (puedes agregar links reales después) */}
               <div className="flex gap-5 mt-6">
                 <a
                   href="#"

@@ -16,7 +16,7 @@ function BarItem({ title, icon: Icon, tag, pathname }: BarItemProps) {
   const isActive = pathname === `/${tag}`;
 
   return (
-    <button
+    <div
       onClick={() => router.push(`/${tag}`)}
       className="flex-1 flex justify-center"
     >
@@ -47,7 +47,7 @@ function BarItem({ title, icon: Icon, tag, pathname }: BarItemProps) {
           )}
         </AnimatePresence>
       </motion.div>
-    </button>
+    </div>
   );
 }
 

@@ -1,6 +1,6 @@
 import { detailProductApiService } from "./api-service";
 
-export const detailQueryFn = async (slug: string) => {
+export const detailFetcher = async (slug: string) => {
   const detailProductService = detailProductApiService();
 
   try {

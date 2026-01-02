@@ -1,3 +1,4 @@
+import ErrorSection from "@/src/features/common/presentation/components/Error";
 import { ProductResponse } from "@/src/features/store/domain/types/store.types";
 import { productsFetcher } from "@/src/features/store/infrastructure/product-fetcher";
 import Header from "@/src/features/store/presentation/components/Header";
@@ -15,20 +16,7 @@ export default async function HomePage() {
   try {
     products = await productsFetcher();
   } catch (err) {
-    return (
-      <div className="w-full min-h-screen flex flex-col bg-gradient-to-t from-[var(--angie-soft-start)] to-[var(--angie-white)]">
-        <Header />
-        <section className="flex-1 flex flex-col items-center justify-center px-6 text-center">
-          <span className="text-6xl mb-4">😞</span>
-
-          <h2 className="text-xl font-semibold text-gray-800 mb-2">
-            Algo salió mal
-          </h2>
-
-          <p className="text-gray-500 text-sm">Inténtalo de nuevo más tarde.</p>
-        </section>
-      </div>
-    );
+    return <ErrorSection header={<Header />} />;
   }
 
   return <StoreView products={products} />;

@@ -2,6 +2,7 @@ import { cartFetch } from "@/src/features/cart/infrastructure/cart-fetcher";
 import Header from "@/src/features/cart/presentation/components/Header";
 import CartView from "@/src/features/cart/presentation/views/cart-view";
 import { authOptions } from "@/src/features/common/lib/auth-options";
+import ErrorSection from "@/src/features/common/presentation/components/Error";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
 
@@ -39,20 +40,7 @@ async function CartPage() {
   try {
     cartItems = await cartFetch(session?.user?.cartId ?? "");
   } catch (err: any) {
-    return (
-      <div className="w-full min-h-screen flex flex-col bg-gradient-to-b from-[var(--angie-soft-start)] to-[var(--angie-white)]">
-        <Header cartCount={0} />
-        <section className="flex-1 flex flex-col items-center justify-center px-6 text-center">
-          <span className="text-6xl mb-4">😞</span>
-
-          <h2 className="text-xl font-semibold text-gray-800 mb-2">
-            Algo salió mal
-          </h2>
-
-          <p className="text-gray-500 text-sm">Inténtalo de nuevo más tarde.</p>
-        </section>
-      </div>
-    );
+    return <ErrorSection header={<Header cartCount={0} />} />;
   }
 
   const totalItems =

@@ -1,17 +1,22 @@
 "use client";
 import { DetailProductSkeleton } from "@/src/features/detail-product/presentation/components/DetailProductSkeleton";
 import { ArrowLeft, ShoppingCart } from "lucide-react";
-import { useGetDetail } from "../../interceptors/use-get-detail";
 import { useRouter } from "next/navigation";
 import BannerCarousel from "@/src/features/common/presentation/components/BannerCarousel";
 import { useCreateCartItem } from "../../mutations/mutations";
 import { useSession } from "next-auth/react";
 import { toast } from "sonner";
+import { DetailProductResponse } from "../../domain/types/detail.types";
+import Header from "../components/Header";
 
-const DetailProductView = ({ slug }: { slug: string }) => {
+const DetailProductView = ({
+  response,
+}: {
+  response: DetailProductResponse;
+}) => {
   const router = useRouter();
   const { data: session } = useSession();
-  const { data: response, isLoading } = useGetDetail({ slug });
+
   const { mutate: createCartItem } = useCreateCartItem(
     session?.user?.cartId ?? ""
   );
@@ -30,31 +35,15 @@ const DetailProductView = ({ slug }: { slug: string }) => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="sticky top-0 z-10 bg-white border-b border-gray-200">
-        <div className="relative flex items-center justify-center py-4">
-          <button
-            onClick={() => router.back()}
-            className="absolute left-4 p-2 rounded-full hover:bg-gray-100 transition-colors"
-            aria-label="Atrás"
-          >
-            <ArrowLeft className="w-6 h-6 text-gray-600" />
-          </button>
-          <h1 className="text-lg font-medium">Detalles del producto</h1>
-        </div>
-      </div>
+      <Header />
 
-      {/* Contenido principal */}
       <div className="pb-24">
-        {" "}
-        {/* Espacio extra para el botón flotante si lo quieres */}
-        {isLoading || !response ? (
+        {!response ? (
           <DetailProductSkeleton />
         ) : (
           <div className="px-6 pt-6">
-            {/* Carrusel de imágenes */}
             <BannerCarousel banners={response.data.product_images} />
 
-            {/* Información del producto */}
             <div className="mt-6 space-y-6">
               <div>
                 <h2 className="text-2xl font-semibold text-gray-900">
@@ -78,11 +67,16 @@ const DetailProductView = ({ slug }: { slug: string }) => {
         )}
       </div>
 
-      {/* Botón de agregar al carrito - fijo en la parte inferior */}
-      {!isLoading && response && (
+      {response && (
         <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 py-4">
           <button
-            onClick={() => handleSubmit(1)}
+            onClick={() => {
+              if (session == null) {
+                toast.error("Inicia sesión para agregar productos al carrito");
+              } else {
+                handleSubmit(1);
+              }
+            }}
             className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-[var(--angie-pink-start)] to-[var(--angie-pink-end)] text-white font-medium px-6 py-4 rounded-full shadow-lg hover:bg-primary/90 transition-all duration-300"
           >
             <ShoppingCart size={22} strokeWidth={2} />

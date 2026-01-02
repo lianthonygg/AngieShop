@@ -1,38 +1,62 @@
 import type { Metadata } from "next";
-import { detailQueryFn } from "@/src/features/detail-product/infrastructure/detail-fetcher";
+import { detailFetcher } from "@/src/features/detail-product/infrastructure/detail-fetcher";
 import DetailProductView from "@/src/features/detail-product/presentation/views/detail-product-view";
-import {
-  dehydrate,
-  HydrationBoundary,
-  QueryClient,
-} from "@tanstack/react-query";
+import { DetailProductResponse } from "@/src/features/detail-product/domain/types/detail.types";
+import ErrorSection from "@/src/features/common/presentation/components/Error";
+import Header from "@/src/features/detail-product/presentation/components/Header";
+import { supabaseAdmin } from "@/src/features/common/lib/supabase/server";
 
-interface PageProps {
-  params: Promise<{ slug: string }>;
+export async function generateStaticParams() {
+  const { data: products, error } = await supabaseAdmin
+    .from("products")
+    .select(
+      `
+              id,
+              slug,
+              name,
+              description,
+              price,
+              currency,
+              image_url,
+              is_active,
+              sort_order
+            `
+    )
+    .order("sort_order", { ascending: true });
+
+  if (error) {
+    throw new Error("Error al obtener los productos");
+  }
+
+  return products.map((product) => ({
+    slug: product.slug,
+  }));
 }
 
-const ProductDetail = async ({ params }: PageProps) => {
+const ProductDetail = async ({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) => {
   const { slug } = await params;
+  let product: DetailProductResponse;
 
-  const queryClient = new QueryClient();
+  try {
+    product = await detailFetcher(slug?.toString() ?? "");
+  } catch (err) {
+    return <ErrorSection header={<Header />} />;
+  }
 
-  await queryClient.prefetchQuery({
-    queryKey: ["productBySlug", slug],
-    queryFn: async () => await detailQueryFn(slug),
-  });
-
-  return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <DetailProductView slug={slug} />
-    </HydrationBoundary>
-  );
+  return <DetailProductView response={product} />;
 };
 
 export async function generateMetadata({
   params,
-}: PageProps): Promise<Metadata> {
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
   const { slug } = await params;
-  const { data: product } = await detailQueryFn(slug);
+  const { data: product } = await detailFetcher(slug?.toString() ?? "");
   return {
     title: product.name,
     description: product.description,
@@ -76,7 +100,5 @@ export async function generateMetadata({
     },
   };
 }
-
-
 
 export default ProductDetail;
