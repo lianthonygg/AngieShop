@@ -1,4 +1,3 @@
-import { productsQueryFn } from "@/src/features/store/infrastructure/product-fetcher";
 import { createClient } from "@supabase/supabase-js";
 import { MetadataRoute } from "next";
 
@@ -39,17 +38,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: "https://angie-shop.vercel.app",
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "weekly",
       priority: 1.0,
     },
-    {
-      url: "https://angie-shop.vercel.app/store",
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
+    // {
+    //   url: "https://angie-shop.vercel.app/store",
+    //   lastModified: new Date(),
+    //   changeFrequency: "weekly",
+    //   priority: 0.9,
+    // },
     ...products.map((p) => ({
-      url: `https://angie-shop.vercel.app/store/product/${p.slug}`,
+      url: `https://angie-shop.vercel.app/product/${p.slug}`,
       lastModified: new Date(),
       changeFrequency: "weekly" as const,
       priority: 0.8,

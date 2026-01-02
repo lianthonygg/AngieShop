@@ -46,7 +46,7 @@ function CheckoutButton({ items, totalPrice }: CheckoutButtonProps) {
       href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-20 left-1/2 -translate-x-1/2 w-11/12 max-w-md bg-green-600 hover:bg-green-700 text-white font-bold text-lg py-4 px-8 rounded-2xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-3 z-10"
+      className="fixed bottom-20 left-1/2 -translate-x-1/2 w-11/12 max-w-md bg-gradient-to-r from-[var(--angie-pink-start)] to-[var(--angie-pink-end)] text-white font-bold text-lg py-4 px-8 rounded-2xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-3 z-10"
     >
       <ShoppingCart className="w-6 h-6" />
       Completar Compra

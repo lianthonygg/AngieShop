@@ -1,6 +1,6 @@
 import { getCartItemsApiService } from "./api-service";
 
-export const cartQueryFn = async (cartId: string) => {
+export const cartFetch = async (cartId: string) => {
   const cartService = getCartItemsApiService();
 
   try {

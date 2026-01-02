@@ -1,6 +1,6 @@
 import { getProductApiService } from "../infrastructure/api-service";
 
-export const productsQueryFn = async () => {
+export const productsFetcher = async () => {
   const productService = getProductApiService();
   const result = await productService.getProducts();
 

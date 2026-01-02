@@ -2,16 +2,25 @@
 
 import BottomBar from "@/src/features/common/presentation/components/BottomBar";
 import ProductCard from "../components/ProductCard";
-import { Heart, Search } from "lucide-react";
+import { Heart } from "lucide-react";
 import { bannersMock } from "../mock/banner.mock";
 import { ProductCardSkeleton } from "../components/ProductCardSkeleton";
-import { useProducts } from "../hooks/useProducts";
 import Header from "../components/Header";
 import BannerCarousel from "@/src/features/common/presentation/components/BannerCarousel";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { ProductResponse } from "../../domain/types/store.types";
 
-const StoreView = () => {
-  const { data, handleNavigateTo } = useProducts();
+interface StoreViewProps {
+  products: ProductResponse;
+}
+
+const StoreView = ({ products }: StoreViewProps) => {
+  const router = useRouter();
+
+  const handleNavigateTo = (url: string) => {
+    router.push(url);
+  };
 
   return (
     <div className={`w-full min-h-screen`}>
@@ -20,7 +29,7 @@ const StoreView = () => {
 
       <main className="md:max-w-4xl mx-auto px-3 pt-3 pb-20">
         <BannerCarousel banners={bannersMock} />
-        {!data?.data && (
+        {!products && (
           <section className="grid grid-cols-2 gap-3">
             {Array.from({ length: 6 }).map((_, index) => (
               <ProductCardSkeleton key={`skeleton-${index}`} />
@@ -28,7 +37,7 @@ const StoreView = () => {
           </section>
         )}
         <section className="grid grid-cols-2 gap-3">
-          {data?.data.map((product, index) => (
+          {products?.data.map((product, index) => (
             <ProductCard
               key={product.id}
               index={index}
@@ -39,7 +48,7 @@ const StoreView = () => {
               price={product.price}
               currency={product.currency}
               openDetail={(slug) => {
-                handleNavigateTo(`/store/product/${slug}`);
+                handleNavigateTo(`/product/${slug}`);
               }}
             />
           ))}

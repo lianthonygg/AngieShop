@@ -27,8 +27,8 @@ const ProfileView = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-100 to-blue-100 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-tr from-purple-300/20 via-transparent to-pink-300/20" />
+    <div className="min-h-screen relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-100 via-pink-100 to-blue-100" />
       <div className="relative z-1 flex flex-col items-center justify-center min-h-screen px-6 py-12">
         <Header />
 
@@ -58,11 +58,9 @@ const ProfileView = () => {
         ) : (
           <SignInWithGoogleSection />
         )}
-
-        <Footer />
       </div>
 
-      <BottomBar />
+      <Footer />
     </div>
   );
 };

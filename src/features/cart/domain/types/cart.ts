@@ -1,13 +1,13 @@
-interface CartResponse {
+export interface CartResponse {
   items: CartItem[];
 }
 
-interface CartError {
+export interface CartError {
   error: string;
   message: string;
 }
 
-interface CartItem {
+export interface CartItem {
   id: string;
   quantity: number;
   product_id: string;
@@ -15,7 +15,7 @@ interface CartItem {
   created_at: string;
 }
 
-interface Product {
+export interface Product {
   id: string;
   name: string;
   slug: string;

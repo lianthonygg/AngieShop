@@ -60,7 +60,7 @@ export async function generateMetadata({
       ],
     },
     alternates: {
-      canonical: `https://angie-shop.vercel.app/store/product/${slug}`,
+      canonical: `https://angie-shop.vercel.app/product/${slug}`,
     },
     twitter: {
       card: "summary_large_image",

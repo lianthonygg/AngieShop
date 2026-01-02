@@ -25,7 +25,7 @@ const DetailProductView = ({ slug }: { slug: string }) => {
       quantity: quantity,
     });
     toast.success("Producto Agregado al Carrito");
-    handleNavigateTo("/store");
+    handleNavigateTo("/");
   };
 
   return (
@@ -60,7 +60,7 @@ const DetailProductView = ({ slug }: { slug: string }) => {
                 <h2 className="text-2xl font-semibold text-gray-900">
                   {response.data.name}
                 </h2>
-                <p className="text-3xl font-bold text-green-600 mt-3">
+                <p className="text-3xl font-bold text-angie-pink mt-3">
                   ${response.data.price} {response.data.currency}
                 </p>
               </div>
@@ -83,7 +83,7 @@ const DetailProductView = ({ slug }: { slug: string }) => {
         <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 py-4">
           <button
             onClick={() => handleSubmit(1)}
-            className="w-full flex items-center justify-center gap-3 bg-primary text-white font-medium px-6 py-4 rounded-full shadow-lg hover:bg-primary/90 transition-all duration-300"
+            className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-[var(--angie-pink-start)] to-[var(--angie-pink-end)] text-white font-medium px-6 py-4 rounded-full shadow-lg hover:bg-primary/90 transition-all duration-300"
           >
             <ShoppingCart size={22} strokeWidth={2} />
             <span className="text-lg">Agregar al carrito</span>

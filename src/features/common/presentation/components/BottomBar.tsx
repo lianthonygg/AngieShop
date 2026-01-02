@@ -1,46 +1,24 @@
-import React from "react";
+"use client";
+
+import { CircleUserIcon, ShoppingBagIcon, StoreIcon } from "lucide-react";
 import BarItem from "./BarItem";
-import { AlignJustify } from "lucide-react";
-import {
-  BuildingStorefrontIcon,
-  CubeIcon,
-  ShoppingBagIcon,
-  UserCircleIcon,
-} from "@heroicons/react/24/outline";
 import { usePathname } from "next/navigation";
 
 function BottomBar() {
   const pathname = usePathname();
 
   return (
-    <footer className="fixed bottom-0 left-0 right-0 flex justify-between px-2 items-center w-full h-16 bg-white/95 shadow-top z-10">
-      <BarItem
-        title="Tienda"
-        icon={"/Shop.svg"}
-        tag="store"
-        pathname={pathname}
-      />
-      {/* <BarItem
-        title="Categorias"
-        icon={"/Categories.svg"}
-        tag="categories"
-        pathname={pathname}
-      />
-      <BarItem
-        title="Favoritos"
-        icon={"/WishList.svg"}
-        tag="favorites"
-        pathname={pathname}
-      /> */}
+    <footer className="fixed bottom-0 left-0 right-0 flex justify-between items-center px-2 h-16 bg-pink-100 shadow-top z-10">
+      <BarItem title="Tienda" icon={StoreIcon} tag="" pathname={pathname} />
       <BarItem
         title="Carrito"
-        icon={"Cart.svg"}
+        icon={ShoppingBagIcon}
         tag="cart"
         pathname={pathname}
       />
       <BarItem
         title="Perfil"
-        icon={"/Profile.svg"}
+        icon={CircleUserIcon}
         tag="profile"
         pathname={pathname}
       />

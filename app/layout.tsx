@@ -10,8 +10,9 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import QueryProvider from "@/src/features/common/presentation/providers/QueryProvider";
 import { bannersMock } from "@/src/features/store/presentation/mock/banner.mock";
-import "./globals.css";
 import { Toaster } from "@/src/features/common/presentation/components/ui/sonner";
+import "./globals.css";
+import BottomBar from "@/src/features/common/presentation/components/BottomBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -86,7 +87,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="es">
       <head>
         <link
           rel="preload"
@@ -96,9 +97,11 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${raleway.variable} ${nunito.variable} ${poppins.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${raleway.variable} ${nunito.variable} ${poppins.variable} antialiased min-h-screen`}
       >
+        {/* <div className="fixed inset-0 bg-gradient-to-b from-[var(--angie-soft-start)] to-[var(--angie-white)] pointer-events-none" /> */}
         <QueryProvider>{children}</QueryProvider>
+        <BottomBar />
         <Analytics />
         <SpeedInsights />
         <Toaster />
