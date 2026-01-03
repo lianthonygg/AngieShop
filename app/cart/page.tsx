@@ -1,10 +1,10 @@
+import { getServerSession } from "next-auth";
+import Image from "next/image";
 import { cartFetch } from "@/src/features/cart/infrastructure/cart-fetcher";
 import Header from "@/src/features/cart/presentation/components/Header";
 import CartView from "@/src/features/cart/presentation/views/cart-view";
 import { authOptions } from "@/src/features/common/lib/auth-options";
 import ErrorSection from "@/src/features/common/presentation/components/Error";
-import { getServerSession } from "next-auth";
-import Image from "next/image";
 
 export const metadata = {
   title: "Carrito | Angie Shop",
