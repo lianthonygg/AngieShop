@@ -26,8 +26,9 @@ export const detailProductApiService = (): DetailProductApiService => {
   async function getProductBySlug(
     slug: string
   ): Promise<Result<DetailProductResponse, DetailProductError>> {
+    const supabase = supabaseAdmin();
     try {
-      const { data, error } = await supabaseAdmin
+      const { data, error } = await supabase
         .from("products")
         .select("*, product_images(*)")
         .eq("slug", slug)

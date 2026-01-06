@@ -13,8 +13,9 @@ interface GetProductApiService {
 
 export const getProductApiService = (): GetProductApiService => {
   async function getProducts(): Promise<Result<ProductResponse, ProductError>> {
+    const supabase = supabaseAdmin();
     try {
-      const { data: products, error } = await supabaseAdmin
+      const { data: products, error } = await supabase
         .from("products")
         .select(
           `

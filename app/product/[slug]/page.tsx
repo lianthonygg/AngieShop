@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
 import { detailFetcher } from "@/src/features/detail-product/infrastructure/detail-fetcher";
-import DetailProductView from "@/src/features/detail-product/presentation/views/detail-product-view";
+import { DetailProductView } from "@/src/features/detail-product/presentation/views/detail-product-view";
 import { DetailProductResponse } from "@/src/features/detail-product/domain/types/detail.types";
 import ErrorSection from "@/src/features/common/presentation/components/Error";
 import Header from "@/src/features/detail-product/presentation/components/Header";
 import { supabaseAdmin } from "@/src/features/common/lib/supabase/server";
+import { Suspense } from "react";
+import { DetailProductSkeleton } from "@/src/features/detail-product/presentation/components/DetailProductSkeleton";
 
 export async function generateStaticParams() {
-  const { data: products, error } = await supabaseAdmin
+  const supabase = supabaseAdmin();
+
+  const { data: products, error } = await supabase
     .from("products")
     .select(
       `
@@ -47,7 +51,11 @@ const ProductDetail = async ({
     return <ErrorSection header={<Header />} />;
   }
 
-  return <DetailProductView response={product} />;
+  return (
+    <Suspense fallback={<DetailProductSkeleton />}>
+      <DetailProductView response={product} />
+    </Suspense>
+  );
 };
 
 export async function generateMetadata({

@@ -16,5 +16,12 @@ export default async function ProfilePage() {
     return <SignInWithGoogleSection />;
   }
 
-  return <ProfileView session={session} />;
+  const userData = {
+    name: session.user.name ?? "",
+    email: session.user.email ?? "",
+    image: session.user.image ?? "",
+    createdAt: session.user.createdAt ?? "",
+  };
+
+  return <ProfileView data={userData} />;
 }

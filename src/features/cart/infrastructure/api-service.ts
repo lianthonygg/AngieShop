@@ -16,8 +16,9 @@ export const getCartItemsApiService = (): GetCartItemsApiService => {
   async function getCartItems(
     cartId: string
   ): Promise<Result<CartResponse, CartError>> {
+    const supabase = supabaseAdmin();
     try {
-      const { data: items, error } = await supabaseAdmin
+      const { data: items, error } = await supabase
         .from("cart_item")
         .select(
           `

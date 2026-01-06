@@ -3,11 +3,16 @@ import { Calendar, Mail } from "lucide-react";
 import Avatar from "../components/Avatar";
 import Stat from "../components/Stat";
 import LogoutButton from "../components/LogoutButton";
-import { Session } from "next-auth";
-import { signOut } from "next-auth/react";
 
-const ProfileView = ({ session }: { session: Session }) => {
-  const { name, email, image, createdAt } = session.user ?? {};
+interface UserData {
+  name: string;
+  email: string;
+  image: string;
+  createdAt: string;
+}
+
+const ProfileView = ({ data }: { data: UserData }) => {
+  const { name, email, image, createdAt } = data ?? {};
 
   const formattedDate = new Date(createdAt ?? "").toLocaleDateString("es-ES", {
     year: "numeric",
@@ -34,7 +39,7 @@ const ProfileView = ({ session }: { session: Session }) => {
             value={formattedDate}
           />
 
-          <LogoutButton onLogout={() => signOut()} />
+          <LogoutButton />
         </div>
       </div>
     </div>

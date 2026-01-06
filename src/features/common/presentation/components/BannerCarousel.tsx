@@ -50,7 +50,7 @@ export default function BannerCarousel({ banners }: { banners: Banner[] }) {
               <CarouselItem key={id}>
                 <div className="relative w-full aspect-[16/9] md:aspect-[21/9]">
                   <Image
-                    src={`product-images/${image_url}`}
+                    src={`product-images/${image_url ?? `${slug}.avif`}`}
                     alt={slug}
                     fill
                     loader={supabaseLoader}

@@ -101,7 +101,6 @@ export default function RootLayout({
       >
         {/* <div className="fixed inset-0 bg-gradient-to-b from-[var(--angie-soft-start)] to-[var(--angie-white)] pointer-events-none" /> */}
         <SessionProviderClient>{children}</SessionProviderClient>
-        <BottomBar />
         <Analytics />
         <SpeedInsights />
         <Toaster />
