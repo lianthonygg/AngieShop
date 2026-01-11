@@ -1,17 +1,18 @@
 import { Search } from "lucide-react";
-import React from "react";
+import Image from "next/image";
 
 const Header = () => {
   return (
-    <header className="py-4 px-2 flex md:justify-around items-center gap-4 font-bold sticky top-0 bg-white z-40 shadow-lg">
-      <div className="flex items-center flex-1 gap-2">
-        <img
-          src="/logo.png"
+    <header className="px-2 flex md:justify-around items-center justify-between gap-4 font-bold sticky top-0 bg-white z-40 shadow-lg">
+      <div className="relative w-16 h-16 flex items-center gap-2">
+        <Image
+          src="/logo.avif"
           alt="Logo Angie Shop"
-          className="w-10 h-10 object-contain"
+          fill
+          className="object-contain"
         />
-        <span className={`font-raleway text-xl`}>Angie Shop</span>
       </div>
+      <span className={`font-raleway text-xl`}>Angie Shop</span>
       <input
         type="text"
         className={`font-poppins hidden md:block px-3 py-1 text-black placeholder:text-black border rounded-xl focus:outline-none focus:ring-1 focus:ring-primary flex-shrink-0`}

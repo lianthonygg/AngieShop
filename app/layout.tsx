@@ -89,6 +89,10 @@ export default function RootLayout({
   return (
     <html lang="es">
       <head>
+        <meta
+          name="google-site-verification"
+          content="5k0AHMV7tmmksUg65xZDADEnbSKkxsZ06davZdM5-9I"
+        />
         <link
           rel="preload"
           as="image"
@@ -99,7 +103,6 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${raleway.variable} ${nunito.variable} ${poppins.variable} antialiased min-h-screen`}
       >
-        {/* <div className="fixed inset-0 bg-gradient-to-b from-[var(--angie-soft-start)] to-[var(--angie-white)] pointer-events-none" /> */}
         <SessionProviderClient>{children}</SessionProviderClient>
         <Analytics />
         <SpeedInsights />

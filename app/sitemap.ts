@@ -1,6 +1,3 @@
-import { Product } from "@/src/features/common/domain/types/common.types";
-import { ProductMapper } from "@/src/features/store/domain/mappers/product.mapper";
-import { ProductResponse } from "@/src/features/store/domain/types/store.types";
 import { createClient } from "@supabase/supabase-js";
 import { MetadataRoute } from "next";
 
@@ -10,7 +7,7 @@ const supabase = createClient(
 );
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  let products: ProductResponse = { data: [] };
+  let products: any[] = [];
 
   try {
     const { data, error } = await supabase
@@ -31,7 +28,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       .order("sort_order", { ascending: true });
 
     if (!error) {
-      products = ProductMapper(data);
+      products = data;
     }
   } catch (err) {
     console.warn("No se pudieron cargar los productos para el sitemap.");
@@ -51,7 +48,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     //   changeFrequency: "weekly",
     //   priority: 0.9,
     // },
-    ...products.data.map((p) => ({
+    ...products.map((p) => ({
       url: `https://angie-shop.vercel.app/product/${p.slug}`,
       lastModified: new Date(),
       changeFrequency: "weekly" as const,

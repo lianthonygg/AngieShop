@@ -36,23 +36,30 @@ const StoreViewClient = ({ products }: StoreViewClientProps) => {
             ))}
           </section>
         )}
-        <section className="grid grid-cols-2 gap-3">
-          {products?.data.map((product, index) => (
-            <ProductCard
-              key={product.id}
-              index={index}
-              slug={product.slug}
-              src={product.image_url}
-              alt={product.name}
-              title={product.name}
-              price={product.price}
-              currency={product.currency}
-              openDetail={(slug) => {
-                handleNavigateTo(`/product/${slug}`);
-              }}
-            />
-          ))}
-        </section>
+        {Object.entries(products?.data).map(([categoria, productos]) => (
+          <section key={categoria} className="mb-12">
+            <h2 className="text-xl font-bold mb-6 text-gray-800">
+              {categoria}
+            </h2>
+            <section className="grid grid-cols-2 gap-3">
+              {productos.map((product, index) => (
+                <ProductCard
+                  key={product.id}
+                  index={index}
+                  slug={product.slug}
+                  src={product.image_url}
+                  alt={product.name}
+                  title={product.name}
+                  price={product.price}
+                  currency={product.currency}
+                  openDetail={(slug) => {
+                    handleNavigateTo(`/product/${slug}`);
+                  }}
+                />
+              ))}
+            </section>
+          </section>
+        ))}
       </main>
       <footer className="bg-gradient-to-b from-gray-50 to-white border-t border-gray-200 mt-auto">
         <div className="max-w-7xl mx-auto px-6 py-12">

@@ -1,11 +1,11 @@
-# EnviosYaStore – Frontend
+# Angie Shop
 
 ![Status](https://img.shields.io/badge/status-en%20desarrollo-yellow)
-![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)
+![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-Este frontend está desarrollado con **Next.js** y **TypeScript**, y forma parte de un sistema completo cuyo backend está implementado en **.NET** (en otro repositorio).
+Este frontend está desarrollado con **Next.js** y **TypeScript**, y forma parte de un sistema completo cuyo Backend as a Service es **Supabase**.
 
 > 🛠 **Estado:** En desarrollo. Actualmente no está desplegado públicamente, pero incluye un Dockerfile listo para producción.
 
@@ -13,7 +13,7 @@ Este frontend está desarrollado con **Next.js** y **TypeScript**, y forma parte
 
 ## 🚀 Tecnologías utilizadas
 
-- **Next.js** 15
+- **Next.js** 16
 - **TypeScript**
 - **pnpm** como gestor de paquetes
 - **TailwindCSS** para estilos
@@ -23,11 +23,11 @@ Este frontend está desarrollado con **Next.js** y **TypeScript**, y forma parte
 
 ## 📌 Funcionalidades destacadas
 
-- **Autenticación con JWT** (almacenado en cookies)
+- **Autenticación OAuth2** (Google)
 - **Carrito de compras persistente**
 - **Vista de tienda con listado de productos**
 - **Página de detalle de producto**
-- Integración con backend en **.NET** (API REST)
+- Integración con Backend as a Service en **Supabase**
 - Arquitectura modular y mantenible
 
 ---
@@ -37,7 +37,7 @@ Este frontend está desarrollado con **Next.js** y **TypeScript**, y forma parte
 1. **Clonar el repositorio:**
 
 ```bash
-git clone https://github.com/cyberscript-pro/EnviosYa-Frontend.git
+git clone https://github.com/lianthonygg/AngieShop.git
 cd EnviosYa-Frontend
 ```
 
@@ -60,16 +60,16 @@ pnpm build
 pnpm start
 ```
 
-5. **🐳 Ejecución con Docker**
+<!-- 5. **🐳 Ejecución con Docker**
 
 ```bash
 docker build -t enviosya-frontend .
-docker run -p 3000:3000 enviosya-frontend
-```
+docker run -p 3000:3000 angieshop
+``` -->
 
-🔗 Repositorio backend
+<!-- 🔗 Repositorio backend
 
-- <a href="https://github.com/cyberscript-pro/EnviosYa-Backend">EnviosYa – Backend en .NET</a>
+- <a href=""></a> -->
 
 **📜 Licencia**
 
