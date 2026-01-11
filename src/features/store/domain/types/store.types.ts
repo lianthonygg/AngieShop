@@ -1,7 +1,7 @@
 import { Product } from "@/src/features/common/domain/types/common.types";
 
 export interface ProductResponse {
-  data: Product[];
+  data: Record<string, Product[]>;
 }
 
 export interface ProductError {

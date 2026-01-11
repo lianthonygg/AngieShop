@@ -44,7 +44,7 @@ export default function BannerCarousel({ banners }: { banners: Banner[] }) {
         className="w-full overflow-hidden rounded-2xl bg-gray-100"
       >
         <CarouselContent>
-          {banners.map(({ id, image_url, slug }, index) => {
+          {banners.map(({ id, image_url, slug, category }, index) => {
             const isFirst = index === 0;
             return (
               <CarouselItem key={id}>
@@ -63,6 +63,9 @@ export default function BannerCarousel({ banners }: { banners: Banner[] }) {
                     // Forzamos al navegador a darle máxima prioridad
                     {...(isFirst && { fetchPriority: "high" })}
                   />
+                  <span className="absolute bottom-3 left-3 backdrop-blur-sm bg-opacity-50 text-black px-3 py-1 rounded-md text-sm">
+                    {category}
+                  </span>
                 </div>
               </CarouselItem>
             );

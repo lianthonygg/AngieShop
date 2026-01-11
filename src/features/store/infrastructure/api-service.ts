@@ -27,7 +27,8 @@ export const getProductApiService = (): GetProductApiService => {
             currency,
             image_url,
             is_active,
-            sort_order
+            sort_order,
+            product_categories!inner(categories(*))
           `
         )
         .order("sort_order", { ascending: true });

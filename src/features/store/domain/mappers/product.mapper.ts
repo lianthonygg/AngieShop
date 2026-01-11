@@ -12,6 +12,7 @@ export const ProductMapper = (products: any[]): ProductResponse => {
       description: prod.description,
       price: prod.price,
       currency: prod.currency,
+      category: prod.product_categories[0].categories.name,
       image_url: prod.image_url,
       is_active: prod.is_active,
       created_at: prod.created_at,
@@ -21,5 +22,20 @@ export const ProductMapper = (products: any[]): ProductResponse => {
     data.push(productItem);
   });
 
-  return { data };
+  const productosPorCategoria = data.reduce(
+    (acc: Record<string, Product[]>, producto) => {
+      const categoria = producto.category;
+
+      if (!acc[categoria]) {
+        acc[categoria] = [];
+      }
+
+      acc[categoria].push(producto);
+
+      return acc;
+    },
+    {}
+  );
+
+  return { data: productosPorCategoria };
 };
