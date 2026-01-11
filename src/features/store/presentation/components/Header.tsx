@@ -1,14 +1,15 @@
 import { Search } from "lucide-react";
-import React from "react";
+import Image from "next/image";
 
 const Header = () => {
   return (
     <header className="px-2 flex md:justify-around items-center justify-between gap-4 font-bold sticky top-0 bg-white z-40 shadow-lg">
-      <div className="flex items-center gap-2">
-        <img
+      <div className="relative w-16 h-16 flex items-center gap-2">
+        <Image
           src="/logo.avif"
           alt="Logo Angie Shop"
-          className="w-16 h-16 object-contain"
+          fill
+          className="object-contain"
         />
       </div>
       <span className={`font-raleway text-xl`}>Angie Shop</span>
