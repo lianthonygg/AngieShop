@@ -93,6 +93,7 @@ export default function RootLayout({
           name="google-site-verification"
           content="5k0AHMV7tmmksUg65xZDADEnbSKkxsZ06davZdM5-9I"
         />
+        <meta name="apple-mobile-web-app-title" content="Angie Shop" />
         <link
           rel="preload"
           as="image"
