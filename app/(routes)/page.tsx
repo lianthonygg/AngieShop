@@ -18,7 +18,7 @@ export default async function HomePage() {
   try {
     products = await productsFetcher();
   } catch (err) {
-    return <ErrorSection header={<Header />} />;
+    return <ErrorSection header={<Header onToggle={() => {}} />} />;
   }
 
   return (
