@@ -69,7 +69,13 @@ async function CartPage() {
     );
   }
 
-  return <CartView data={cartItems} totalItems={totalItems} />;
+  return (
+    <CartView
+      data={cartItems}
+      totalItems={totalItems}
+      cartId={session?.user?.cartId ?? ""}
+    />
+  );
 }
 
 export default CartPage;

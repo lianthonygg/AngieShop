@@ -9,6 +9,7 @@ import { ProductMapper } from "../domain/mappers/product.mapper";
 
 interface GetProductApiService {
   getProducts: () => Promise<Result<ProductResponse, ProductError>>;
+  searchProducts(query: string): Promise<Result<ProductResponse, ProductError>>;
 }
 
 export const getProductApiService = (): GetProductApiService => {
@@ -29,8 +30,63 @@ export const getProductApiService = (): GetProductApiService => {
             is_active,
             sort_order,
             product_categories!inner(categories(*))
-          `
+          `,
         )
+        .order("sort_order", { ascending: true });
+
+      if (error) {
+        return createError({
+          error: error.message,
+          message: "Error al obtener los productos",
+        });
+      }
+
+      return createSuccess(ProductMapper(products));
+    } catch (error: any) {
+      if (error.response) {
+        return createError({
+          error: error.response.data,
+          message: "Error al obtener los productos",
+        });
+      } else if (error.request) {
+        return createError({
+          error: "Sin respuesta del servidor",
+          message: "Error de conexion al servidor",
+        });
+      } else {
+        return createError({
+          error: error.message,
+          message: "Error desconocido al obtener los productos",
+        });
+      }
+    }
+  }
+
+  async function searchProducts(
+    query: string,
+  ): Promise<Result<ProductResponse, ProductError>> {
+    const supabase = supabaseAdmin();
+    try {
+      if (!query) return createSuccess(ProductMapper([]));
+
+      const { data: products, error } = await supabase
+        .from("products")
+        .select(
+          `
+            id,
+            slug,
+            name,
+            description,
+            price,
+            currency,
+            image_url,
+            is_active,
+            sort_order,
+            product_categories!inner(categories(*))
+          `,
+        )
+        .ilike("name", `%${query}%`)
+        .limit(10)
         .order("sort_order", { ascending: true });
 
       if (error) {
@@ -63,5 +119,6 @@ export const getProductApiService = (): GetProductApiService => {
 
   return {
     getProducts,
+    searchProducts,
   };
 };
