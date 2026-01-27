@@ -14,17 +14,17 @@ import {
 
 interface DetailProductApiService {
   getProductBySlug: (
-    slug: string
+    slug: string,
   ) => Promise<Result<DetailProductResponse, DetailProductError>>;
   createCartItem: (
     cartId: string,
-    cartItem: CreateCartItemRequest
+    cartItem: CreateCartItemRequest,
   ) => Promise<Result<string, DetailProductError>>;
 }
 
 export const detailProductApiService = (): DetailProductApiService => {
   async function getProductBySlug(
-    slug: string
+    slug: string,
   ): Promise<Result<DetailProductResponse, DetailProductError>> {
     const supabase = supabaseAdmin();
     try {
@@ -55,7 +55,7 @@ export const detailProductApiService = (): DetailProductApiService => {
                 id: image.id,
                 image_url: image.url,
                 slug: image.slug,
-              } as Banner)
+              }) as Banner,
           ),
         },
       } as DetailProductResponse);
@@ -81,13 +81,29 @@ export const detailProductApiService = (): DetailProductApiService => {
 
   async function createCartItem(
     cartId: string,
-    cartItem: CreateCartItemRequest
+    cartItem: CreateCartItemRequest,
   ): Promise<Result<string, DetailProductError>> {
     try {
-      await shopApi.post(`/cart-items/${cartId}`, {
-        product_id: cartItem.product_id,
-        quantity: cartItem.quantity,
-      });
+      const supabase = supabaseAdmin();
+      const { data, error } = await supabase
+        .from("cart_item")
+        .insert([
+          {
+            cart_id: cartId,
+            product_id: cartItem.product_id,
+            quantity: cartItem.quantity,
+          },
+        ])
+        .select()
+        .single();
+
+      if (error) {
+        return createError({
+          error: error.message,
+          message: "Error al agregar el producto al carrito",
+        });
+      }
+
       return createSuccess("Producto Agregado al Carrito");
     } catch (error: any) {
       if (error.response) {
