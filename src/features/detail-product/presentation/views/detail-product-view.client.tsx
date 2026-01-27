@@ -3,11 +3,12 @@ import { DetailProductSkeleton } from "@/src/features/detail-product/presentatio
 import { ArrowLeft, ShoppingCart } from "lucide-react";
 import { useRouter } from "next/navigation";
 import BannerCarousel from "@/src/features/common/presentation/components/BannerCarousel";
-import { useCreateCartItem } from "../../mutations/mutations";
 import { useSession } from "next-auth/react";
 import { toast } from "sonner";
 import { DetailProductResponse } from "../../domain/types/detail.types";
 import Header from "../components/Header";
+import { cartItemAdd } from "../../infrastructure/cart-item-add";
+import { CreateCartItemRequest } from "@/src/features/common/domain/validations/create-cartitem.validation";
 
 const DetailProductViewClient = ({
   response,
@@ -17,18 +18,29 @@ const DetailProductViewClient = ({
   const router = useRouter();
   const { data: session } = useSession();
 
-  const { mutate: createCartItem } = useCreateCartItem(
-    session?.user?.cartId ?? ""
-  );
+  const handleCartAdd = async (
+    cartId: string,
+    productId: string,
+    quantity: number,
+  ) => {
+    let request: CreateCartItemRequest = {
+      product_id: productId,
+      quantity: quantity,
+    };
+
+    await cartItemAdd(request, cartId);
+  };
+
   const handleNavigateTo = (url: string) => {
     router.push(url);
   };
 
   const handleSubmit = (quantity: number) => {
-    createCartItem({
-      product_id: response?.data.id ?? "",
-      quantity: quantity,
-    });
+    handleCartAdd(
+      session?.user.cartId ?? "",
+      response?.data.id ?? "",
+      quantity,
+    );
     toast.success("Producto Agregado al Carrito");
     handleNavigateTo("/");
   };
