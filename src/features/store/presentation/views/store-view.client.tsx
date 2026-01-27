@@ -9,6 +9,8 @@ import BannerCarousel from "@/src/features/common/presentation/components/Banner
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ProductResponse } from "../../domain/types/store.types";
+import { useEffect, useState } from "react";
+import SearchModal from "../components/SearchModal";
 
 interface StoreViewClientProps {
   products: ProductResponse;
@@ -16,6 +18,19 @@ interface StoreViewClientProps {
 
 const StoreViewClient = ({ products }: StoreViewClientProps) => {
   const router = useRouter();
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [open]);
 
   const handleNavigateTo = (url: string) => {
     router.prefetch(url);
@@ -25,12 +40,12 @@ const StoreViewClient = ({ products }: StoreViewClientProps) => {
   return (
     <div className={`w-full min-h-screen`}>
       {/* <PageTransition /> */}
-      <Header />
+      <Header onToggle={() => setOpen(true)} />
 
-      <main className="md:max-w-4xl mx-auto px-3 pt-3 pb-20">
+      <main className="md:max-w-6xl mx-auto px-3 pt-3 pb-20">
         <BannerCarousel banners={bannersMock} />
         {!products && (
-          <section className="grid grid-cols-2 gap-3">
+          <section className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {Array.from({ length: 6 }).map((_, index) => (
               <ProductCardSkeleton key={`skeleton-${index}`} />
             ))}
@@ -41,7 +56,7 @@ const StoreViewClient = ({ products }: StoreViewClientProps) => {
             <h2 className="text-xl font-bold mb-6 text-gray-800">
               {categoria}
             </h2>
-            <section className="grid grid-cols-2 gap-3">
+            <section className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {productos.map((product, index) => (
                 <ProductCard
                   key={product.id}
@@ -161,6 +176,7 @@ const StoreViewClient = ({ products }: StoreViewClientProps) => {
           </div>
         </div>
       </footer>
+      <SearchModal open={open} onClose={() => setOpen(false)} />
       <BottomBar />
     </div>
   );

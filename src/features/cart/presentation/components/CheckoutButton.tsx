@@ -11,12 +11,14 @@ type CheckoutButtonProps = {
     quantity: number;
   }>;
   totalPrice?: number;
+  cartId: string;
+  onFinish: (cartId: string) => void;
 };
 
-function CheckoutButton({ items, totalPrice }: CheckoutButtonProps) {
+function CheckoutButton({ items, totalPrice, cartId, onFinish }: CheckoutButtonProps) {
   const calculatedTotal = items.reduce(
     (sum, item) => sum + item.product.price * item.quantity,
-    0
+    0,
   );
   const finalTotal = totalPrice || calculatedTotal;
 
@@ -27,11 +29,11 @@ function CheckoutButton({ items, totalPrice }: CheckoutButtonProps) {
       (item) =>
         `• ${item.product.name} - Cantidad: ${item.quantity} - Subtotal: $${(
           item.product.price * item.quantity
-        ).toFixed(2)}`
+        ).toFixed(2)}`,
     );
 
     const message = `¡Hola! Me gustaría hacer el siguiente pedido:\n\n${productLines.join(
-      "\n"
+      "\n",
     )}\n\n*Total: $${finalTotal.toFixed(2)}*\n\n¡Gracias!`;
 
     return encodeURIComponent(message);
@@ -43,6 +45,7 @@ function CheckoutButton({ items, totalPrice }: CheckoutButtonProps) {
 
   return (
     <a
+      onClick={() => onFinish(cartId)}
       href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"

@@ -10,11 +10,17 @@ import { CartError, CartResponse } from "../domain/types/cart";
 
 interface GetCartItemsApiService {
   getCartItems: (cartId: string) => Promise<Result<CartResponse, CartError>>;
+  updateQuantity: (
+    cartItemId: string,
+    newQuantity: number,
+  ) => Promise<Result<string, CartError>>;
+  deleteCartItem: (cartItemId: string) => Promise<Result<string, CartError>>;
+  completePurchase(cartId: string): Promise<Result<string, CartError>>;
 }
 
 export const getCartItemsApiService = (): GetCartItemsApiService => {
   async function getCartItems(
-    cartId: string
+    cartId: string,
   ): Promise<Result<CartResponse, CartError>> {
     const supabase = supabaseAdmin();
     try {
@@ -35,7 +41,7 @@ export const getCartItemsApiService = (): GetCartItemsApiService => {
           currency,
           image_url
         )
-      `
+      `,
         )
         .eq("cart_id", cartId)
         .eq("is_active", true)
@@ -69,7 +75,135 @@ export const getCartItemsApiService = (): GetCartItemsApiService => {
     }
   }
 
+  async function updateQuantity(
+    cartItemId: string,
+    newQuantity: number,
+  ): Promise<Result<string, CartError>> {
+    try {
+      const supabase = supabaseAdmin();
+      const { data, error } = await supabase
+        .from("cart_item")
+        .update({
+          quantity: newQuantity,
+        })
+        .eq("id", cartItemId)
+        .select()
+        .single();
+
+      if (error) {
+        return createError({
+          error: error.message,
+          message: "Error al actualizar la cantidad del producto",
+        });
+      }
+
+      return createSuccess("Cantidad actualizada correctamente");
+    } catch (error: any) {
+      if (error.response) {
+        return createError({
+          error: error.response.data,
+          message: "Error al actualizar la cantidad del producto",
+        });
+      } else if (error.request) {
+        return createError({
+          error: "Sin respuesta del servidor",
+          message: "Error de conexion al servidor",
+        });
+      } else {
+        return createError({
+          error: error.message,
+          message: "Error desconocido al actualizar la cantidad del producto",
+        });
+      }
+    }
+  }
+
+  async function deleteCartItem(
+    cartItemId: string,
+  ): Promise<Result<string, CartError>> {
+    try {
+      const supabase = supabaseAdmin();
+      const { data, error } = await supabase
+        .from("cart_item")
+        .update({
+          is_active: false,
+        })
+        .eq("id", cartItemId)
+        .select()
+        .single();
+
+      if (error) {
+        return createError({
+          error: error.message,
+          message: "Error al eliminar el producto",
+        });
+      }
+
+      return createSuccess("Producto eliminado correctamente");
+    } catch (error: any) {
+      if (error.response) {
+        return createError({
+          error: error.response.data,
+          message: "Error al eliminar el producto",
+        });
+      } else if (error.request) {
+        return createError({
+          error: "Sin respuesta del servidor",
+          message: "Error de conexion al servidor",
+        });
+      } else {
+        return createError({
+          error: error.message,
+          message: "Error desconocido al eliminar el producto",
+        });
+      }
+    }
+  }
+
+  async function completePurchase(
+    cartId: string,
+  ): Promise<Result<string, CartError>> {
+    try {
+      const supabase = supabaseAdmin();
+      const { error } = await supabase
+        .from("cart_item")
+        .update({
+          is_active: false,
+        })
+        .eq("cart_id", cartId);
+
+      if (error) {
+        return createError({
+          error: error.message,
+          message: "Error al eliminar los productos",
+        });
+      }
+
+      return createSuccess("Productos eliminados correctamente");
+    } catch (error: any) {
+      if (error.response) {
+        return createError({
+          error: error.response.data,
+          message: "Error al eliminar los productos",
+        });
+      } else if (error.request) {
+        return createError({
+          error: "Sin respuesta del servidor",
+          message: "Error de conexion al servidor",
+        });
+      } else {
+        return createError({
+          error: error.message,
+          message: "Error desconocido al eliminar los productos",
+        });
+      }
+    }
+  }
+
   return {
     getCartItems,
+    updateQuantity,
+    deleteCartItem,
+    completePurchase,
   };
 };

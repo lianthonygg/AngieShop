@@ -48,7 +48,7 @@ export default function BannerCarousel({ banners }: { banners: Banner[] }) {
             const isFirst = index === 0;
             return (
               <CarouselItem key={id}>
-                <div className="relative w-full aspect-[16/9] md:aspect-[21/9]">
+                <div className="relative w-full aspect-[16/9] md:aspect-[21/9] md:max-h-60">
                   <Image
                     src={`product-images/${image_url ?? `${slug}.avif`}`}
                     alt={slug}
@@ -63,7 +63,7 @@ export default function BannerCarousel({ banners }: { banners: Banner[] }) {
                     // Forzamos al navegador a darle máxima prioridad
                     {...(isFirst && { fetchPriority: "high" })}
                   />
-                  <span className="absolute bottom-3 left-3 backdrop-blur-sm bg-opacity-50 text-black px-3 py-1 rounded-md text-sm">
+                  <span className="absolute bottom-3 left-3 backdrop-blur-sm bg-opacity-50 text-white px-3 py-1 rounded-md text-sm md:text-lg md:font-semibold">
                     {category}
                   </span>
                 </div>
