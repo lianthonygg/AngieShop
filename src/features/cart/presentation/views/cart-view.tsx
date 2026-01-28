@@ -7,6 +7,7 @@ import { CartResponse } from "../../domain/types/cart";
 import { updateQuantityCartItem } from "../../infrastructure/cart-item-update-quantity";
 import { deleteCartItem } from "../../infrastructure/cart-item-delete";
 import { completePurchase } from "../../infrastructure/cart-items-purchase";
+import { cartFetch } from "../../infrastructure/cart-fetcher";
 
 interface CartViewProps {
   data: CartResponse;
@@ -21,6 +22,7 @@ const CartView = ({ data, totalItems, cartId }: CartViewProps) => {
 
   const handleRemoveCartItem = async (id: string) => {
     await deleteCartItem(cartId, id);
+    await cartFetch(cartId);
   };
 
   const handleCompletePurchase = async (id: string) => {

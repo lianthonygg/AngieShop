@@ -1,3 +1,4 @@
+"use server";
 import { getCartItemsApiService } from "./api-service";
 
 export const cartFetch = async (cartId: string) => {
