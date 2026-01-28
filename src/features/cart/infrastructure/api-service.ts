@@ -133,7 +133,10 @@ export const getCartItemsApiService = (): GetCartItemsApiService => {
         .eq("id", cartItemId)
         .select("id");
 
+      console.log("CART_ID:", cartId);
+      console.log("ID:", cartItemId);
       console.log("UPDATED:", data);
+      console.log("ERROR:", error);
 
       if (error) {
         return createError({
