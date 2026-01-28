@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import BottomBar from "@/src/features/common/presentation/components/BottomBar";
 import Header from "../components/Header";
 import CartItem from "../components/CartItem";
@@ -32,6 +33,28 @@ const CartView = ({ data, totalItems, cartId }: CartViewProps) => {
   const handleCompletePurchase = async (id: string) => {
     await completePurchase(id);
   };
+
+  if (cartResponse.items.length === 0) {
+    return (
+      <div className="w-full min-h-screen flex flex-col bg-gradient-to-b from-[var(--angie-soft-start)] to-[var(--angie-white)]">
+        <Header cartCount={0} />
+        <section className="flex-1 flex flex-col items-center justify-center px-6 text-center">
+          <div className="w-40 h-40 rounded-full shadow-xl flex items-center justify-center mb-8">
+            <Image
+              src="/CartEmpty.png"
+              alt="Carrito vacío"
+              width={120}
+              height={120}
+            />
+          </div>
+          <h2 className="text-2xl font-semibold mb-2">Tu carrito está vacío</h2>
+          <p className="text-gray-600">
+            ¡Explora la tienda y agrega productos!
+          </p>
+        </section>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full min-h-screen flex flex-col">
