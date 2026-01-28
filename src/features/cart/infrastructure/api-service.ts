@@ -10,10 +10,14 @@ import { CartError, CartResponse } from "../domain/types/cart";
 interface GetCartItemsApiService {
   getCartItems: (cartId: string) => Promise<Result<CartResponse, CartError>>;
   updateQuantity: (
+    cartId: string,
     cartItemId: string,
     newQuantity: number,
   ) => Promise<Result<string, CartError>>;
-  deleteCartItem: (cartItemId: string) => Promise<Result<string, CartError>>;
+  deleteCartItem: (
+    cartId: string,
+    cartItemId: string,
+  ) => Promise<Result<string, CartError>>;
   completePurchase(cartId: string): Promise<Result<string, CartError>>;
 }
 
@@ -75,6 +79,7 @@ export const getCartItemsApiService = (): GetCartItemsApiService => {
   }
 
   async function updateQuantity(
+    cartId: string,
     cartItemId: string,
     newQuantity: number,
   ): Promise<Result<string, CartError>> {
@@ -85,7 +90,8 @@ export const getCartItemsApiService = (): GetCartItemsApiService => {
         .update({
           quantity: newQuantity,
         })
-        .eq("id", cartItemId);
+        .eq("id", cartItemId)
+        .eq("cart_id", cartId);
 
       if (error) {
         return createError({
@@ -116,16 +122,18 @@ export const getCartItemsApiService = (): GetCartItemsApiService => {
   }
 
   async function deleteCartItem(
+    cartId: string,
     cartItemId: string,
   ): Promise<Result<string, CartError>> {
     try {
       const supabase = supabaseAdmin();
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from("cart_item")
         .update({
           is_active: false,
         })
-        .eq("id", cartItemId);
+        .eq("id", cartItemId)
+        .eq("cart_id", cartId);
 
       if (error) {
         return createError({

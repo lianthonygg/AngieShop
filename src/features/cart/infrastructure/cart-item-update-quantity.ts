@@ -3,13 +3,18 @@
 import { getCartItemsApiService } from "./api-service";
 
 export const updateQuantityCartItem = async (
+  cartId: string,
   cartItemId: string,
   newQuantity: number,
 ) => {
   const cartService = getCartItemsApiService();
 
   try {
-    const result = await cartService.updateQuantity(cartItemId, newQuantity);
+    const result = await cartService.updateQuantity(
+      cartId,
+      cartItemId,
+      newQuantity,
+    );
     if (result.success) {
       return result.data;
     } else {
