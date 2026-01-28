@@ -25,7 +25,7 @@ export const getCartItemsApiService = (): GetCartItemsApiService => {
   async function getCartItems(
     cartId: string,
   ): Promise<Result<CartResponse, CartError>> {
-    const supabase = supabaseAdmin();
+    const supabase = await supabaseAdmin();
     try {
       const { data: items, error } = await supabase
         .from("cart_item")
@@ -84,7 +84,7 @@ export const getCartItemsApiService = (): GetCartItemsApiService => {
     newQuantity: number,
   ): Promise<Result<string, CartError>> {
     try {
-      const supabase = supabaseAdmin();
+      const supabase = await supabaseAdmin();
       const { error } = await supabase
         .from("cart_item")
         .update({
@@ -126,7 +126,7 @@ export const getCartItemsApiService = (): GetCartItemsApiService => {
     cartItemId: string,
   ): Promise<Result<string, CartError>> {
     try {
-      const supabase = supabaseAdmin();
+      const supabase = await supabaseAdmin();
       const { data, error, count } = await supabase
         .from("cart_item")
         .update({ is_active: false })
@@ -167,7 +167,7 @@ export const getCartItemsApiService = (): GetCartItemsApiService => {
     cartId: string,
   ): Promise<Result<string, CartError>> {
     try {
-      const supabase = supabaseAdmin();
+      const supabase = await supabaseAdmin();
       const { error } = await supabase
         .from("cart_item")
         .update({

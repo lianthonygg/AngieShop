@@ -14,7 +14,7 @@ interface GetProductApiService {
 
 export const getProductApiService = (): GetProductApiService => {
   async function getProducts(): Promise<Result<ProductResponse, ProductError>> {
-    const supabase = supabaseAdmin();
+    const supabase = await supabaseAdmin();
     try {
       const { data: products, error } = await supabase
         .from("products")
@@ -65,7 +65,7 @@ export const getProductApiService = (): GetProductApiService => {
   async function searchProducts(
     query: string,
   ): Promise<Result<ProductResponse, ProductError>> {
-    const supabase = supabaseAdmin();
+    const supabase = await supabaseAdmin();
     try {
       if (!query) return createSuccess(ProductMapper([]));
 

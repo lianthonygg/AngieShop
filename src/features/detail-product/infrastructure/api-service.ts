@@ -25,7 +25,7 @@ export const detailProductApiService = (): DetailProductApiService => {
   async function getProductBySlug(
     slug: string,
   ): Promise<Result<DetailProductResponse, DetailProductError>> {
-    const supabase = supabaseAdmin();
+    const supabase = await supabaseAdmin();
     try {
       const { data, error } = await supabase
         .from("products")
@@ -83,7 +83,7 @@ export const detailProductApiService = (): DetailProductApiService => {
     cartItem: CreateCartItemRequest,
   ): Promise<Result<string, DetailProductError>> {
     try {
-      const supabase = supabaseAdmin();
+      const supabase = await supabaseAdmin();
       const { error } = await supabase.from("cart_item").insert([
         {
           cart_id: cartId,
