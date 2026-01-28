@@ -9,7 +9,7 @@ import { Suspense } from "react";
 import { DetailProductSkeleton } from "@/src/features/detail-product/presentation/components/DetailProductSkeleton";
 
 export async function generateStaticParams() {
-  const supabase = supabaseAdmin();
+  const supabase = await supabaseAdmin();
 
   const { data: products, error } = await supabase
     .from("products")
