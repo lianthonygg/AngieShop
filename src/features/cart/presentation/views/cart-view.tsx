@@ -8,6 +8,7 @@ import { updateQuantityCartItem } from "../../infrastructure/cart-item-update-qu
 import { deleteCartItem } from "../../infrastructure/cart-item-delete";
 import { completePurchase } from "../../infrastructure/cart-items-purchase";
 import { cartFetch } from "../../infrastructure/cart-fetcher";
+import { useState } from "react";
 
 interface CartViewProps {
   data: CartResponse;
@@ -16,13 +17,16 @@ interface CartViewProps {
 }
 
 const CartView = ({ data, totalItems, cartId }: CartViewProps) => {
+  const [cartResponse, setCartResponse] = useState<CartResponse>(data);
+
   const handleUpdateQuantity = async (id: string, quantity: number) => {
     await updateQuantityCartItem(cartId, id, quantity);
   };
 
   const handleRemoveCartItem = async (id: string) => {
     await deleteCartItem(cartId, id);
-    await cartFetch(cartId);
+    let response = await cartFetch(cartId);
+    setCartResponse(response);
   };
 
   const handleCompletePurchase = async (id: string) => {
@@ -36,7 +40,7 @@ const CartView = ({ data, totalItems, cartId }: CartViewProps) => {
       <section className="flex-1 overflow-y-auto">
         <div className="max-w-6xl mx-auto px-4 pt-6 pb-32">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto w-full">
-            {data.items.map((item) => (
+            {cartResponse.items.map((item) => (
               <CartItem
                 key={item.id}
                 id={item.id}
