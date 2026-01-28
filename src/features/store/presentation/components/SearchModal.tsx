@@ -59,25 +59,29 @@ export default function SearchModal({ open, onClose }: SearchModalProps) {
         {loading && <p className="text-sm">Buscando...</p>}
 
         <div className="flex-1 overflow-y-auto pr-1">
-          {Object.entries(results?.data).map(([categoria, productos]) => (
-            <section key={categoria} className="mb-6">
-              <h2 className="text-lg font-semibold mb-3 text-gray-800">
-                {categoria}
-              </h2>
+          {Object.entries(results?.data).length === 0 ? (
+            <div>No se encontraron productos</div>
+          ) : (
+            Object.entries(results?.data).map(([categoria, productos]) => (
+              <section key={categoria} className="mb-6">
+                <h2 className="text-lg font-semibold mb-3 text-gray-800">
+                  {categoria}
+                </h2>
 
-              <section className="space-y-3">
-                {productos.map((product) => (
-                  <SearchCard
-                    key={product.id}
-                    product={product}
-                    onToggle={() =>
-                      handleNavigateTo(`/product/${product.slug}`)
-                    }
-                  />
-                ))}
+                <section className="space-y-3">
+                  {productos.map((product) => (
+                    <SearchCard
+                      key={product.id}
+                      product={product}
+                      onToggle={() =>
+                        handleNavigateTo(`/product/${product.slug}`)
+                      }
+                    />
+                  ))}
+                </section>
               </section>
-            </section>
-          ))}
+            ))
+          )}
         </div>
       </div>
     </div>
