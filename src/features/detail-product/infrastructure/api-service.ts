@@ -84,17 +84,13 @@ export const detailProductApiService = (): DetailProductApiService => {
   ): Promise<Result<string, DetailProductError>> {
     try {
       const supabase = supabaseAdmin();
-      const { data, error } = await supabase
-        .from("cart_item")
-        .insert([
-          {
-            cart_id: cartId,
-            product_id: cartItem.product_id,
-            quantity: cartItem.quantity,
-          },
-        ])
-        .select()
-        .single();
+      const { error } = await supabase.from("cart_item").insert([
+        {
+          cart_id: cartId,
+          product_id: cartItem.product_id,
+          quantity: cartItem.quantity,
+        },
+      ]);
 
       if (error) {
         console.error(error);

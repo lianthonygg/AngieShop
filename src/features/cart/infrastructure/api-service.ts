@@ -80,14 +80,12 @@ export const getCartItemsApiService = (): GetCartItemsApiService => {
   ): Promise<Result<string, CartError>> {
     try {
       const supabase = supabaseAdmin();
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from("cart_item")
         .update({
           quantity: newQuantity,
         })
-        .eq("id", cartItemId)
-        .select()
-        .single();
+        .eq("id", cartItemId);
 
       if (error) {
         return createError({
@@ -127,8 +125,7 @@ export const getCartItemsApiService = (): GetCartItemsApiService => {
         .update({
           is_active: false,
         })
-        .eq("id", cartItemId)
-        .select();
+        .eq("id", cartItemId);
 
       if (error) {
         return createError({
