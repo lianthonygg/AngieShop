@@ -2,13 +2,11 @@
 
 import { getCartItemsApiService } from "./api-service";
 
-export const deleteCartItem = async (
-  cartItemId: string,
-) => {
+export const deleteCartItem = async (cartId: string, cartItemId: string) => {
   const cartService = getCartItemsApiService();
 
   try {
-    const result = await cartService.deleteCartItem(cartItemId);
+    const result = await cartService.deleteCartItem(cartId, cartItemId);
     if (result.success) {
       return result.data;
     } else {

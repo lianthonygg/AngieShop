@@ -16,11 +16,11 @@ interface CartViewProps {
 
 const CartView = ({ data, totalItems, cartId }: CartViewProps) => {
   const handleUpdateQuantity = async (id: string, quantity: number) => {
-    await updateQuantityCartItem(id, quantity);
+    await updateQuantityCartItem(cartId, id, quantity);
   };
 
   const handleRemoveCartItem = async (id: string) => {
-    await deleteCartItem(id);
+    await deleteCartItem(cartId, id);
   };
 
   const handleCompletePurchase = async (id: string) => {
