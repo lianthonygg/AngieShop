@@ -127,13 +127,13 @@ export const getCartItemsApiService = (): GetCartItemsApiService => {
   ): Promise<Result<string, CartError>> {
     try {
       const supabase = supabaseAdmin();
-      const { error } = await supabase
+      const { data, error, count } = await supabase
         .from("cart_item")
-        .update({
-          is_active: false,
-        })
+        .update({ is_active: false })
         .eq("id", cartItemId)
-        .eq("cart_id", cartId);
+        .select("id");
+
+      console.log("UPDATED:", data);
 
       if (error) {
         return createError({
