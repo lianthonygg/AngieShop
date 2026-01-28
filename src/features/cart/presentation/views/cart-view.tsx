@@ -37,7 +37,7 @@ const CartView = ({ data, totalItems, cartId }: CartViewProps) => {
             {data.items.map((item) => (
               <CartItem
                 key={item.id}
-                id={item.product.id}
+                id={item.id}
                 title={item.product.name}
                 price={item.product.price}
                 quantity={item.quantity}
