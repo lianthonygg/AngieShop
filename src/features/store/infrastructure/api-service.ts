@@ -32,6 +32,7 @@ export const getProductApiService = (): GetProductApiService => {
             product_categories!inner(categories(*))
           `,
         )
+        .eq("is_active", true)
         .order("sort_order", { ascending: true });
 
       if (error) {
@@ -86,6 +87,7 @@ export const getProductApiService = (): GetProductApiService => {
           `,
         )
         .ilike("name", `%${query}%`)
+        .eq("is_active", true)
         .limit(10)
         .order("sort_order", { ascending: true });
 
