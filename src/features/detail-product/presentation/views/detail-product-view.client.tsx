@@ -37,7 +37,7 @@ const DetailProductViewClient = ({
 
   const handleSubmit = async (quantity: number) => {
     await handleCartAdd(
-      session?.user.cartId ?? "",
+      session?.user?.cartId ?? "",
       response?.data.id ?? "",
       quantity,
     );

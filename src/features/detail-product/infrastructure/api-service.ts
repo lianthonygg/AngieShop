@@ -84,7 +84,7 @@ export const detailProductApiService = (): DetailProductApiService => {
   ): Promise<Result<string, DetailProductError>> {
     try {
       const supabase = await supabaseAdmin();
-      const { error } = await supabase.from("cart_item").insert([
+      const { data, error } = await supabase.from("cart_item").insert([
         {
           cart_id: cartId,
           product_id: cartItem.product_id,
@@ -93,9 +93,9 @@ export const detailProductApiService = (): DetailProductApiService => {
       ]);
 
       if (error) {
-        console.error(error);
+        console.error("Supabase error:", error);
         return createError({
-          error: error.message,
+          error: error.toString(),
           message: "Error al agregar el producto al carrito",
         });
       }
