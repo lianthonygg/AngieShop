@@ -1,4 +1,3 @@
-import { shopApi } from "../../common/data/api/axios-client";
 import { Banner } from "../../common/domain/types/common.types";
 import {
   createError,
@@ -98,6 +97,7 @@ export const detailProductApiService = (): DetailProductApiService => {
         .single();
 
       if (error) {
+        console.error(error);
         return createError({
           error: error.message,
           message: "Error al agregar el producto al carrito",

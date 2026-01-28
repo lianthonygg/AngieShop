@@ -21,7 +21,7 @@ const ProfileView = ({ data }: { data: UserData }) => {
   });
 
   return (
-    <div className="w-full">
+    <div className="w-full max-w-4xl">
       <div className="bg-white/70 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/50 p-8 md:p-10">
         <Avatar avatarUrl={image ?? ""} fullName={name ?? ""} />
 

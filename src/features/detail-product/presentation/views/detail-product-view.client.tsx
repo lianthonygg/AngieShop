@@ -35,8 +35,8 @@ const DetailProductViewClient = ({
     router.push(url);
   };
 
-  const handleSubmit = (quantity: number) => {
-    handleCartAdd(
+  const handleSubmit = async (quantity: number) => {
+    await handleCartAdd(
       session?.user.cartId ?? "",
       response?.data.id ?? "",
       quantity,
@@ -82,11 +82,11 @@ const DetailProductViewClient = ({
       {response && (
         <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 py-4">
           <button
-            onClick={() => {
+            onClick={async () => {
               if (session == null) {
                 toast.error("Inicia sesión para agregar productos al carrito");
               } else {
-                handleSubmit(1);
+                await handleSubmit(1);
               }
             }}
             className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-[var(--angie-pink-start)] to-[var(--angie-pink-end)] text-white font-medium px-6 py-4 rounded-full shadow-lg hover:bg-primary/90 transition-all duration-300"
