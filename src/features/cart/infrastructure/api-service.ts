@@ -1,4 +1,3 @@
-import { shopApi } from "../../common/data/api/axios-client";
 import {
   createError,
   createSuccess,
@@ -129,8 +128,7 @@ export const getCartItemsApiService = (): GetCartItemsApiService => {
           is_active: false,
         })
         .eq("id", cartItemId)
-        .select()
-        .single();
+        .select();
 
       if (error) {
         return createError({
