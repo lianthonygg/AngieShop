@@ -3,8 +3,10 @@ import { MetadataRoute } from "next";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_KEY!
+  process.env.SUPABASE_KEY!,
 );
+
+const BASE_URL = "https://angie-shop.vercel.app";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let products: any[] = [];
@@ -14,39 +16,53 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       .from("products")
       .select(
         `
-      id,
-      slug,
-      name,
-      description,
-      price,
-      currency,
-      image_url,
-      is_active,
-      sort_order
-    `
+          slug,
+          is_active,
+          updated_at
+        `,
       )
-      .order("sort_order", { ascending: true });
+      .eq("is_active", true);
 
-    if (!error) {
-      products = data;
-    }
+    if (error) throw error;
+    products = data ?? [];
   } catch (err) {
     console.warn("No se pudieron cargar los productos para el sitemap.");
-    throw new Error("No se pudieron cargar los productos para el sitemap.");
+    products = [];
   }
 
-  return [
+  const staticPages: MetadataRoute.Sitemap = [
     {
-      url: "https://angie-shop.vercel.app",
+      url: `${BASE_URL}`,
       lastModified: new Date(),
-      changeFrequency: "weekly",
+      changeFrequency: "daily",
       priority: 1.0,
     },
-    ...products.map((p) => ({
-      url: `https://angie-shop.vercel.app/product/${p.slug}`,
-      lastModified: new Date(),
-      changeFrequency: "weekly" as const,
-      priority: 0.9,
-    })),
+    // {
+    //   url: `${BASE_URL}/categoria/tecnologia-accesorios`,
+    //   lastModified: new Date(),
+    //   changeFrequency: "weekly",
+    //   priority: 0.8,
+    // },
+    // {
+    //   url: `${BASE_URL}/categoria/perfumes`,
+    //   lastModified: new Date(),
+    //   changeFrequency: "weekly",
+    //   priority: 0.8,
+    // },
+    // {
+    //   url: `${BASE_URL}/categoria/infantil`,
+    //   lastModified: new Date(),
+    //   changeFrequency: "weekly",
+    //   priority: 0.8,
+    // },
   ];
+
+  const productPages: MetadataRoute.Sitemap = products.map((p) => ({
+    url: `${BASE_URL}/product/${p.slug}`,
+    lastModified: p.updated_at ? new Date(p.updated_at) : new Date(),
+    changeFrequency: "weekly",
+    priority: 0.7,
+  }));
+
+  return [...staticPages, ...productPages];
 }
