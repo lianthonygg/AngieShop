@@ -55,10 +55,6 @@ const ProductDetail = async ({
     return <ErrorSection header={<Header />} />;
   }
 
-  if (!product || !product.data.is_active) {
-    notFound();
-  }
-
   return (
     <Suspense fallback={<DetailProductSkeleton />}>
       <DetailProductView response={product} />
