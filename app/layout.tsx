@@ -49,15 +49,16 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://angie-shop.vercel.app"),
-  title: "Angie Shop | Perfumes y Tecnología en Matanzas, Cuba",
+  title: "Angie Shop | Tienda Online en Matanzas, Cuba",
   description:
-    "Tienda online de perfumes y tecnología en Matanzas, Cuba. Encuentra las mejores ofertas en fragancias y gadgets de última generación.",
+    "Compra en Angie Shop, tu tienda online en Matanzas, Cuba con productos variados, regalos, tecnología, perfumes y artículos para el hogar al mejor precio.",
   authors: [{ name: "Li Anthony", url: "https://lianthonygg.vercel.app" }],
   robots: { index: true, follow: true },
+
   openGraph: {
-    title: "Angie Shop",
+    title: "Angie Shop | Tienda Online en Cuba",
     description:
-      "Tienda online de perfumes y tecnología en Matanzas, Cuba. Las mejores ofertas en fragancias y gadgets.",
+      "Descubre Angie Shop, ecommerce en Matanzas, Cuba con productos variados, regalos, tecnología, perfumes y artículos para el hogar con ofertas exclusivas.",
     url: "https://angie-shop.vercel.app",
     siteName: "Angie Shop",
     images: [
@@ -65,17 +66,21 @@ export const metadata: Metadata = {
         url: "/favicon.ico",
         width: 1200,
         height: 630,
+        alt: "Angie Shop - Tienda Online en Cuba",
       },
     ],
     locale: "es_ES",
     type: "website",
   },
+
   twitter: {
     card: "summary_large_image",
-    title: "Angie Shop | Perfumes y Tecnología en Matanzas, Cuba",
-    description: "Tienda online de perfumes y tecnología en Matanzas, Cuba.",
+    title: "Angie Shop | Tienda Online en Matanzas, Cuba",
+    description:
+      "Compra productos variados en Angie Shop: regalos, tecnología, perfumes y artículos para el hogar en Cuba.",
     images: ["https://angie-shop.vercel.app/favicon.ico"],
   },
+
   icons: {
     icon: "/favicon.ico",
   },
