@@ -70,10 +70,6 @@ export async function generateMetadata({
   const { slug } = await params;
   const { data: product } = await detailFetcher(slug?.toString() ?? "");
 
-  if (!product || !product.is_active) {
-    return { robots: { index: false, follow: false } };
-  }
-
   const title = `${product.name} en Cuba | Comprar Online en Angie Shop`;
   const description = `Compra ${product.name} en Angie Shop, tu tienda online en Matanzas, Cuba. Precio accesible, productos originales y entrega rápida.`;
 
