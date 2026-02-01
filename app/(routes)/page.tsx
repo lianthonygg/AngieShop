@@ -7,9 +7,9 @@ import { StoreView } from "@/src/features/store/presentation/views/store-view";
 import { Suspense } from "react";
 
 export const metadata = {
-  title: "Angie Shop | Perfumes y Tecnología en Matanzas, Cuba",
+  title: "Angie Shop | Tienda Online en Matanzas, Cuba",
   description:
-    "Tienda online de perfumes y tecnología en Matanzas, Cuba. Encuentra las mejores ofertas en fragancias y gadgets de última generación.",
+    "Compra en Angie Shop, tu tienda online en Matanzas, Cuba con productos variados, regalos, tecnología, perfumes y artículos para el hogar al mejor precio.",
 };
 
 export default async function HomePage() {
